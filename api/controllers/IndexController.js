@@ -12,16 +12,16 @@ module.exports = {
 			stage.find({}, function(err, s){
 				
 				//Create the row
-				records = grid.getRows(r, s);
-					
-					console.log(records);
+				checkpoint.find({}, function(err, c){
 					
 					var response = {"runway" : r,
-								    "stage" : records };
-					
+						    "stage" : [],
+						    "checkpoints" : c};
+			
 					res.render('index/index', response);
 					
-			
+				});
+					
 				
 			});
 			
