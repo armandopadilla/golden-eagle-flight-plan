@@ -1,0 +1,63 @@
+<a href="/">Home</a> | <a href="/checkpoint/add">Add a Stage</a>
+
+<br><br>
+
+<table>
+<tr><td>Runway:</td>
+	<td><%= runway.name %></td></tr>
+<tr><td>Stage:</td>
+	<td><%= stage.name %></td></tr>
+<tr><td>Check Point:</td><td><input type="text" id="checkpoint" value="<%= name %>" /></td></tr>
+<tr><td colspan="2">
+	<input type="button" value="Save" id="btnSave" />
+	<input type="button" value="Delete" id="btnDelete" /></td></tr>
+</table>
+<input type="hidden" id="checkpoint_id" value="<%= id %>" /> 
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$("#btnSave").on("click", function(){
+	
+	var checkpoint = $("#checkpoint").val(),
+		checkpointId = $("#checkpoint_id").val();
+
+	$.ajax({
+		
+		type: "GET",
+		data: "checkpoint="+checkpoint+"&id="+checkpointId,
+		url: "/checkpoint/save_edit",
+		success: function(err, resp){
+			alert("Saved Checkpoint!");
+		},
+		error: function(err, resp){
+			
+			alert("Err");
+		}
+		
+	});
+	
+});
+
+
+$("#btnDelete").on("click", function(){
+	
+	var id = $("#checkpoint_id").val();
+
+	$.ajax({
+		
+		type: "GET",
+		data: "id="+id,
+		url: "/checkpoint/delete",
+		success: function(err, resp){
+			alert("Removed Checkpoint!");
+		},
+		error: function(err, resp){
+			
+			alert("Err");
+		}
+		
+	});
+	
+});
+</script>

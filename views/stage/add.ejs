@@ -1,0 +1,35 @@
+<a href="/">Home</a> | <a href="/checkpoint/add">Add a Check Point</a>
+
+<br><br>
+<table>
+<tr><td>Stage:</td><td><input type="text" id="stage_name"></td></tr>
+<tr><td colspan="2"><input type="button" value="Add" id="btnAddStage" /></td></tr>
+</table>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$("#btnAddStage").on("click", function(){
+	
+	var stage_name = $("#stage_name").val();
+
+	$.ajax({
+		
+		type: "GET",
+		data: "stage_name="+stage_name,
+		url: "/stage/save",
+		success: function(err, resp){
+			alert("Saved Stage!");
+		},
+		error: function(err, resp){
+			
+			alert("Err");
+		}
+		
+		
+	});
+	
+});
+
+</script>

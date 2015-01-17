@@ -1,0 +1,51 @@
+<a href="/">Home</a> | <a href="/checkpoint/add">Add a Stage</a>
+
+<br><br>
+
+<table>
+<tr><td>Runway:</td>
+	<td>
+		<select id="runway_id">
+		<% for(var i=0; i<runways.length; i++) { %>
+			<option value="<%= runways[i].id %>"><%= runways[i].name %></option>
+		<% } %>
+		</select>
+	</td></tr>
+
+<tr><td>Stage:</td>
+	<td><select id="stage_id">
+	<% for(var i=0; i<stages.length; i++) { %>
+		<option value="<%= stages[i].id %>"><%= stages[i].name %></option>
+	<% } %>
+	</select></td></tr>
+<tr><td>Check Point:</td><td><input type="text" id="checkpoint"></td></tr>
+<tr><td colspan="2"><input type="button" value="Add" id="btnAddCheckpoint" /></td></tr>
+</table>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$("#btnAddCheckpoint").on("click", function(){
+	
+	var stage_id = $("#stage_id").val(),
+		runway_id = $("#runway_id").val(),
+		checkpoint = $("#checkpoint").val();
+
+	$.ajax({
+		
+		type: "GET",
+		data: "stage_id="+stage_id+"&runway_id="+runway_id+"&checkpoint="+checkpoint,
+		url: "/checkpoint/save",
+		success: function(err, resp){
+			alert("Saved Checkpoint!");
+		},
+		error: function(err, resp){
+			
+			alert("Err");
+		}
+		
+	});
+	
+});
+
+</script>
