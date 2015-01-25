@@ -34,10 +34,14 @@ module.exports = {
 		
 		var runwayId = req.param("runway_id"),
 			stageId  = req.param("stage_id"),
-			cp = req.param("checkpoint");
+			cp = req.param("checkpoint"),
+			contentType = req.param("content_type");
+			
+			
 		
 		var checkpointObj = {"runway" : runwayId, 
 							 "stage" : stageId,
+							 "content_type" : contentType,
 							 "name" : cp };
 		
 		//Save the checkpoint
@@ -63,7 +67,6 @@ module.exports = {
 		checkpoint.findOne({"id" : checkpointId }).populateAll().then(function (resp){
 			
 			//Set the view variables and render
-			console.log(resp);
 			res.render('checkpoint/edit', resp);
 			
 		});

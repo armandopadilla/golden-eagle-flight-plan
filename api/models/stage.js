@@ -1,5 +1,6 @@
 module.exports  = {
 		
+	identity : "stage",
 	connection: "localDB",
 	tableName : "stages",
 	
@@ -14,7 +15,8 @@ module.exports  = {
 		name: {
 			type: "string",
 			required: true,
-			unique : true
+			unique : true,
+			size : 200
 		}
 			
 	}

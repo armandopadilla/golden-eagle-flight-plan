@@ -1,0 +1,60 @@
+<a href="/">Home</a> | <a href="/checkpoint/add">Add a Check Point</a>
+
+<br><br>
+<table border="1">
+<tr><td>Stage:</td><td><input type="text" id="stage_name" value="<%= s.name %>"></td></tr>
+<tr><td colspan="2">
+	<input type="button" value="Update" id="btnUpdateStage" />
+	<input type="button" value="Delete" id="btnDeleteStage" />
+	</td></tr>
+</table>
+<input type="hidden" id="stage_id" value="<%= s.id %>" />
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$("#btnUpdateStage").on("click", function(){
+	
+	var stageName = $("#stage_name").val();
+	var stageId   = $("#stage_id").val();
+
+	$.ajax({
+		
+		type: "GET",
+		data: "name="+stageName+"&id="+stageId,
+		url: "/stage/save_edit",
+		success: function(err, resp){
+			alert("Updated Stage!");
+		},
+		error: function(err, resp){
+			alert("Err");
+		}
+		
+		
+	});
+	
+});
+
+$("#btnDeleteStage").on("click", function(){
+	
+	var stageId   = $("#stage_id").val();
+
+	$.ajax({
+		
+		type: "GET",
+		data: "id="+stageId,
+		url: "/stage/delete",
+		success: function(err, resp){
+			alert("Deleted Stage!");
+		},
+		error: function(err, resp){
+			alert("Err");
+		}
+		
+		
+	});
+	
+});
+
+</script>

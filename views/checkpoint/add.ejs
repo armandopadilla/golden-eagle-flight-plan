@@ -18,7 +18,17 @@
 		<option value="<%= stages[i].id %>"><%= stages[i].name %></option>
 	<% } %>
 	</select></td></tr>
-<tr><td>Check Point:</td><td><input type="text" id="checkpoint"></td></tr>
+<tr><td>Name:</td><td><input type="text" id="checkpoint"></td></tr>
+<tr><td colspan="2"></td></tr>
+<tr><td>Content Type</td>
+	<td><select id="content_type">
+		<option>Text</option>
+		<option>URL</option>
+		<option>File</option>
+		</select></td></tr>
+		
+
+<tr><td>General Content:</td><td id="content"><input type="text" id="content_text"></td></tr>
 <tr><td colspan="2"><input type="button" value="Add" id="btnAddCheckpoint" /></td></tr>
 </table>
 
@@ -48,4 +58,21 @@ $("#btnAddCheckpoint").on("click", function(){
 	
 });
 
+
+$("#content_type").on("change", function(){
+	
+	var option = $("#content_type").val();
+	
+	if(option === "File"){
+		//Hide the text 
+		$("#content_text").hide();
+		//Show the title.
+	}	
+	else{
+		//Toggle file.
+		
+	}
+
+
+});
 </script>

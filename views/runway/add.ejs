@@ -1,0 +1,35 @@
+<a href="/">Home</a> | <a href="/checkpoint/add">Add a Check Point</a>
+
+<br><br>
+<table>
+<tr><td>Runway:</td><td><input type="text" id="runway_name"></td></tr>
+<tr><td colspan="2"><input type="button" value="Add" id="btnAddRunway" /></td></tr>
+</table>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$("#btnAddRunway").on("click", function(){
+	
+	var runwayName = $("#runway_name").val();
+
+	$.ajax({
+		
+		type: "GET",
+		data: "name="+runwayName,
+		url: "/runway/save",
+		success: function(err, resp){
+			alert("Saved Runway!");
+		},
+		error: function(err, resp){
+			
+			alert("Err");
+		}
+		
+		
+	});
+	
+});
+
+</script>

@@ -1,5 +1,6 @@
 module.exports  = {
 		
+	identify : "checkpoint",
 	connection: "localDB",
 	tableName : "checkpoints",
 	
@@ -14,18 +15,31 @@ module.exports  = {
 		name: {
 			type: "string",
 			required: true,
-			unique: true
+			size: 200
+			
 		},
 		
 		runway : {
-			model: "runway"
+			model: "runway",
+			required : true
 		},
 		
 		stage : {
-			model: "stage"
-		}
+			model: "stage",
+			required : true
+		},
 		
+		content : {
+			type : "text",
+		},
+		
+		contentType : {
+			type: "text",
+			enum : ['text', 'file', 'url']
+		}
 			
 	}
+
+	//Need validation - if content is present then content type must also be added in.
 		
 }
