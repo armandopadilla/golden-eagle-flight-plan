@@ -18,9 +18,16 @@ module.exports = {
 		
 		var runwayName = req.param("name");
 		
-		runway.create({"name" : runwayName}, function(err, resp){
+		runway.create({"name" : runwayName, "flightplan" : req.session.flightplan}, function(err, resp){
 			
-			var response = {"status" : "OK", "data" : {"transaction_status" : "SUCCESS"}};
+			var response = {};
+			if(err){
+				response = {"status" : "OK", "data" : {"transaction_status" : "FAILED", "error" : err}};
+			}
+			else{
+				response = {"status" : "OK", "data" : {"transaction_status" : "SUCCESS"}};
+			}
+			
 			res.json(response, 200);
 			
 		});

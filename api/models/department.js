@@ -19,10 +19,11 @@ module.exports = {
 		},
 		
 		//Associates department with a flight plan.
+		//A department must have a flight plan.
 		flightplan : {
-			type : "flightplan"
+			model : "flightplan",
+			required: true
 		}
 		
 	}
-	
-}
+}	

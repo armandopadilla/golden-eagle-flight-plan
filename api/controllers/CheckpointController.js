@@ -6,13 +6,14 @@ module.exports = {
 	 */
 	add : function(req, res){
 		
+		var flightplanId = "1"; //req.session.flightplanId;
+		
 		//Fetch the runways and stages.
-		stage.find({}, function(err, stageResp){
+		stage.find({"flightplan" : flightplanId}, function(err, stageResp){
 			
-			runway.find({}, function(err, runwayResp){
+			runway.find({"flightplan" : flightplanId}, function(err, runwayResp){
 				
 				//Set the template vars & display.
-				console.log(stageResp);
 				
 				var templateObj = {runways : runwayResp, 
 								   stages : stageResp};
@@ -35,19 +36,30 @@ module.exports = {
 		var runwayId = req.param("runway_id"),
 			stageId  = req.param("stage_id"),
 			cp = req.param("checkpoint"),
-			contentType = req.param("content_type");
+			contentType = req.param("content_type"),
+			content 	= req.param("content"),
+			flightplanId = req.session.flightplanId;
 			
-			
-		
 		var checkpointObj = {"runway" : runwayId, 
 							 "stage" : stageId,
-							 "content_type" : contentType,
-							 "name" : cp };
+							 "contentType" : contentType,
+							 "content" : content,
+							 "name" : cp,
+							 "flightplan" : flightplanId,
+							 "status" : "unchecked"};
 		
 		//Save the checkpoint
 		checkpoint.create(checkpointObj, function(err, response){
 			
-			var response = {"status" : "OK", "data" : {"transaction_status" : "SUCCESS"}};
+			var data = {"transaction_status" : "SUCCESS"};
+			if(err){
+				data = {"transaction_status" : "FAILED", "error" : err};
+			}
+			else{
+				data = {"transaction_status" : "SUCCESS"};
+			}
+			
+			var response = {"status" : "OK", "data" :data};
 			res.json(response, 200);
 			
 		});
@@ -67,7 +79,7 @@ module.exports = {
 		checkpoint.findOne({"id" : checkpointId }).populateAll().then(function (resp){
 			
 			//Set the view variables and render
-			res.render('checkpoint/edit', resp);
+			res.render('checkpoint/edit', {"checkpoint" : resp });
 			
 		});
 			
@@ -81,12 +93,22 @@ module.exports = {
 		
 		//Fetch values
 		var id = req.param("id"),
-			name = req.param("checkpoint");
+			name = req.param("name"),
+			contentType = req.param("content_type"),
+			content = req.param("content");
 		
 		//Update the checkpoint
-		checkpoint.update({"id" : id}, {"name" : name}, function(err, updates){
+		checkpoint.update({"id" : id}, {"name" : name, "contentType" : contentType, "content" : content}, function(err, updates){
 			
-			var response = {"status" : "OK", "data" : {"transaction_status" : "SUCCESS"}};
+			var data = {};
+			if(err){
+				data = {"transaction_status" : "FAILED", "error" : err};
+			}
+			else{
+				data = {"transaction_status" : "SUCCESS"};
+			}
+			
+			var response = {"status" : "OK", "data" : data};
 			res.json(response, 200);
 			
 		});
@@ -104,7 +126,15 @@ module.exports = {
 		
 		checkpoint.destroy({"id" : checkpointId}, function(err, destroyed){
 			
-			var response = {"status" : "OK", "data" : {"transaction_status" : "SUCCESS"}};
+			var data = {};
+			if(err){
+				data = {"transaction_status" : "FAILED", "error" : err};
+			}
+			else{
+				data = {"transaction_status" : "SUCCESS"};
+			}
+			
+			var response = {"status" : "OK", "data" : data};
 			res.json(response, 200);
 			
 		});

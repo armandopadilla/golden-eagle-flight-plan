@@ -38,37 +38,22 @@ module.exports = {
 			model : "department"
 		},
 		
-		//Each student has a copy pf the flight plan.
-		//Options.  Store each item in the db OR create the flight plan as JSON and update the string.
-		//TODO.
+		//Each student has a copy of a flight plan.
+		flightplan: {
+			model : "flightplan"
+		}
+		
 		
 	},
 		
 	/**
 	 * Authenticate.
 	 */
-	authenticate : function(){},
-	
-	
-	/**
-	 * Fetch flight plan
-	 */
-	beforeFetch : function(userId, userType, cb){
+	authenticate : function(){
 		
-		//Advisors can see all plans
-		//OR User is owner of the flght plan.
-
+		
+		
 	},
-	
-	/**
-	 * Before updating hook. Internal to ORM 
-	 * 1. Administrators can only modify the flight plan.
-	 */
-	beforeUpdate : function(){
-		
-		//Administrators can only modify the flight plan.
-		
-	}
 	
 		
 }

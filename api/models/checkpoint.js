@@ -19,11 +19,13 @@ module.exports  = {
 			
 		},
 		
+		//A checkpoint belongs to a single runway.
 		runway : {
 			model: "runway",
 			required : true
 		},
 		
+		//A checkpoint belongs to a single stage.
 		stage : {
 			model: "stage",
 			required : true
@@ -36,10 +38,46 @@ module.exports  = {
 		contentType : {
 			type: "text",
 			enum : ['text', 'file', 'url']
+		}, 
+		
+		//A checkpoint can only belong to a single flight plan.
+		flightplan : {
+			model : "flightplan"
+		},
+		
+		//Checked or unchecked.
+		status : {
+			type: "string",
+			required: true,
+			enum: ["checked", "unchecked"]
 		}
 			
-	}
-
-	//Need validation - if content is present then content type must also be added in.
+	},
+	
+	/**
+	 * Check is the user can delete a checkpoint.
+	 * Only administrators can delete a checkpoint.
+	 */
+	hasDeleteAccess : function(userType, cb){
 		
+		//If the users is an admin then OK
+		if(userType === "administrator"){
+			return cb(null, true);
+		}
+		
+	},
+	
+	
+	/**
+	 * Check of the user can add new checkpoints.
+	 */
+	hasCreateAccess : function(userType, cb){
+		
+		//If the users is an admin then OK
+		if(userType === "administrator"){
+			return cb(null, true);
+		}
+		
+	}
+	
 }
