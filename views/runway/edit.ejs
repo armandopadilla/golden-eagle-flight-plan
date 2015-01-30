@@ -1,18 +1,43 @@
-<a href="/">Home</a> | <a href="/checkpoint/add">Add a Check Point</a>
+<html>
+<head>
+<title>Golden Eagle Fligh Plan</title>
 
-<br><br>
-<table>
-<tr><td>Runway:</td><td><input type="text" id="runway_name" value="<%= r.name %>"></td></tr>
-<tr><td colspan="2">
-	<input type="button" value="Update" id="btnUpdateRunway" />
-	<input type="button" value="Delete" id="btnDeleteRunway" />
-	</td></tr>
-</td></tr>
-</table>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+
+</head>
+
+<body style="padding-top: 50px;">
+
+<%- partial('../nav') %>
+    
+<div style="padding: 30px 30px;">
+<h3>Edit Runway</h3>
+
+<form>
+<div class="form-group">
+	<label for="runway_name">Runway</label>
+	<input type="text" name="stage_name" id="runway_name" class="form-control" placeholder="Runway Name" value="<%= r.name %>">
+</div>
+<button type="button" class="btn btn-default" id="btnUpdateRunway">Update</button>
+<button type="button" class="btn btn-danger" id="btnDeleteRunway">Delete</button>
 <input type="hidden" id="id" value="<%= r.id %>" />
+</form>
+	
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+</div>
+  
+  
+  
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
 $("#btnUpdateRunway").on("click", function(){
 	
@@ -58,3 +83,7 @@ $("#btnDeleteRunway").on("click", function(){
 });
 
 </script>
+
+
+</body>
+</html>

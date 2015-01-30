@@ -13,23 +13,27 @@
 
 <body style="padding-top: 50px;">
 
-<%- partial('../nav') %>
+	<%- partial('../nav') %>
     
 <div style="padding: 30px 30px;">
-<h3>Add Stage</h3>
+<h3>Manage Stages</h3>
 
-<form>
-<div class="form-group">
-	<label for="stage_name">Stage</label>
-	<input type="text" name="stage_name" id="stage_name" class="form-control" placeholder="Stage Name">
-</div>
-<button type="button" class="btn btn-default" id="btnAddStage">Add</button>
-
-</form>
-	
-
-
-
+<a href="/stage/add">Add New</a> 
+	<table class="table table-striped table-bordered">
+	<thead>
+		<tr><td>Name</td><td>Options</td></tr>
+	</thead>
+	<tbody>
+		<% for(var i=0; i<stages.length; i++) { %>
+		
+			<tr><td width="80%"><%= stages[i].name %></td>
+				<td>
+					<a href="/stage/edit?id=<%=stages[i].id%>" class="btn btn-default">Edit</a> 
+				</td></tr>
+		
+		<% } %> 
+	</tbody> 
+	</table>
 </div>
   
   
@@ -37,29 +41,5 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script>
-$("#btnAddStage").on("click", function(){
-	
-	var stage_name = $("#stage_name").val();
-
-	$.ajax({
-		
-		type: "GET",
-		data: "stage_name="+stage_name,
-		url: "/stage/save",
-		success: function(err, resp){
-			alert("Saved Stage!");
-		},
-		error: function(err, resp){
-			
-			alert("Err");
-		}
-		
-		
-	});
-	
-});
-
-</script>
 </body>
 </html>

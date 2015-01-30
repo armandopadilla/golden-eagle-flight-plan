@@ -1,17 +1,57 @@
 module.exports = {
 		
+		
+	/**
+	 * Manage - only Admins can get here.
+	 */
+	manage : function(req, res){
+		
+		//Check if the user is logged in. (can this be a hook?)
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
+		//Check the user is an admin
+
+		
+		//Pull.
+		stage.find({}).then(function(stages){
+			
+			res.render("stage/manage", {"stages" : stages});
+			
+		});
+		
+	},
+	
+		
+		
 	/**
 	 * Form - Add a new stage to the system
 	 */
 	add : function(req, res){
+		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
+		//Check permissions.
+		
 		res.render('stage/add');
 	},
+	
 
 	/**
 	 * Actually saves the stage into the system 
 	 * or updates the stage.
 	 */
 	save : function(req, res){
+		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
 		
 		//Fetch the name of the new stage
 		var stageName = req.param("stage_name");
@@ -35,6 +75,11 @@ module.exports = {
 	 */
 	edit : function(req, res){
 		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
 		//Initialize 
 		var stageId = req.param("id");
 		
@@ -52,6 +97,11 @@ module.exports = {
 	 */
 	save_edit : function(req, res){
 	
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
 		var stageId = req.param("id"),
 			name = req.param("name");
 		
@@ -70,6 +120,11 @@ module.exports = {
 	 * Delete the stage.
 	 */
 	delete : function(req, res){
+		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
 		
 		var stageId = req.param("id");
 		

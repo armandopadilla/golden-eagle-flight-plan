@@ -31,6 +31,7 @@ module.exports  = {
 			required : true
 		},
 		
+		//A checkpoint might have content. So not required.
 		content : {
 			type : "text",
 		},

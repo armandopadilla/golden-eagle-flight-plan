@@ -6,6 +6,11 @@ module.exports = {
 	 */
 	add : function(req, res){
 		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
 		var flightplanId = "1"; //req.session.flightplanId;
 		
 		//Fetch the runways and stages.
@@ -32,6 +37,11 @@ module.exports = {
 	 * 
 	 */
 	save : function(req, res){
+		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
 		
 		var runwayId = req.param("runway_id"),
 			stageId  = req.param("stage_id"),
@@ -72,6 +82,11 @@ module.exports = {
 	 */
 	edit : function(req, res){
 		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
 		//Initialize vars
 		var checkpointId = req.param("id");
 		
@@ -90,6 +105,11 @@ module.exports = {
 	 * Update the checkpoint
 	 */
 	save_edit: function(req,res){
+		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
 		
 		//Fetch values
 		var id = req.param("id"),
@@ -121,6 +141,11 @@ module.exports = {
 	 */
 	delete : function(req, res){
 		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
 		//Fetch the value
 		var checkpointId = req.param("id");
 		
@@ -139,6 +164,39 @@ module.exports = {
 			
 		});
 		
-	}
+	},
+	
+	
+	/**
+	 * Update the checkpoint status (ajax call in grid)
+	 */
+	checkoff: function(req,res){
+		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
+		//Fetch values
+		var id = req.param("id"),
+			status = req.param("status");
+		
+		//Update the checkpoint
+		checkpoint.update({"id" : id}, {"status" : status}, function(err, updates){
+			
+			var data = {};
+			if(err){
+				data = {"transaction_status" : "FAILED", "error" : err};
+			}
+			else{
+				data = {"transaction_status" : "SUCCESS"};
+			}
+			
+			var response = {"status" : "OK", "data" : data};
+			res.json(response, 200);
+			
+		});
+		
+	},
 		
 }

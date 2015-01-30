@@ -2,9 +2,36 @@ module.exports = {
 	
 	
 	/**
+	 * Manage - only Admins can get here.
+	 */
+	manage : function(req, res){
+		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
+		//Pull.
+		runway.find({}).then(function(runways){
+			
+			res.render("runway/manage", {"runways" : runways});
+			
+		});
+		
+	},
+		
+		
+		
+		
+	/**
 	 * Add a new runway.
 	 */
 	add : function(req, res){
+		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
 		
 		res.render("runway/add");
 		
@@ -15,6 +42,11 @@ module.exports = {
 	 * Save the new runway.
 	 */
 	save : function(req, res){
+		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
 		
 		var runwayName = req.param("name");
 		
@@ -40,6 +72,11 @@ module.exports = {
 	 */
 	edit : function(req, res){
 		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
 		var id   = req.param("id");
 		
 		runway.findOne({"id" : id}).then(function(resp){
@@ -51,6 +88,11 @@ module.exports = {
 	},
 	
 	save_edit : function(req, res){
+		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
 		
 		var name = req.param("name"),
 		id   = req.param("id");
@@ -67,6 +109,11 @@ module.exports = {
 	 */
 	delete : function(req, res){
 		
+		if(req.session.userId === undefined){
+			res.redirect("/login");
+			return;
+		}
+		
 		var id = req.param("id");
 		
 		runway.destroy({"id" : id}, function(err, resp){
@@ -77,10 +124,5 @@ module.exports = {
 		});
 		
 	}
-	
-	
-	
-	
-	
 	
 }

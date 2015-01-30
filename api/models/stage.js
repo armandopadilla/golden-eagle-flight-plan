@@ -15,10 +15,10 @@ module.exports  = {
 		name: {
 			type: "string",
 			required: true,
-			unique : true,
 			size : 200
 		},
 		
+		//A stage belings to a single flightplan.
 		flightplan : {
 			model : "flightplan"
 		}

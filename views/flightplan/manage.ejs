@@ -32,13 +32,13 @@
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Stages <span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
-	            <li><a href="/stage/manage">Manage Stages</a></li>
+	            <li><a href="#">Manage Stages</a></li>
 	          </ul>
 	        </li>
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Runways <span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
-	            <li><a href="/runway/manage">Manage Runways</a></li>
+	            <li><a href="#">Manage Runways</a></li>
 	          </ul>
 	        </li>
 	    <% } %>
@@ -70,109 +70,29 @@
   </div>
 </nav>
     
-    
-<% if(req.session.userType === "student") { %>
 <div style="padding: 30px 30px;">
-	
-	<h2>Your Current Flightplan</h2> 
-	<h4>Flightplan for: <%= major %></h4>
-	<br><br>
-
+<h3>Manage Department Flightplans</h3>
 	<table class="table table-striped table-bordered">
-	<thead><tr><th></th>
-	<% for(var i=0; i<runway.length; i++){ %>
-	
-		<th>
-			<%= runway[i].name %> 
-			<% if(req.session.userType === "administrator"){%>
-				[<a href="/runway/edit?id=<%= runway[i].id %>">Edit</a>]
-			<% } %>
-		</th>
-	
-	<% } %>
-	</tr>
+	<thead>
+		<tr><td>Name</td><td>Options</td></tr>
 	</thead>
-	
 	<tbody>
-	<% for(var j=0; j<stage.length; j++){%>
-	<tr>
-		<td>
-			<%= stage[j].name %> 
-			<% if(req.session.userType === "administrator"){%>
-				[<a href="/stage/edit?id=<%= stage[j].id %>">Edit</a>]
-			<% } %>
-		</td>
+		<% for(var i=0; i<flightplans.length; i++) { %>
 		
-		<% for(var z=0; z<checkpoints[stage[j].id].length; z++){ %>
-			<td><% if(checkpoints[stage[j].id][z]){ %>
-					<input type="checkbox" id="checkpoint" cid="<%= checkpoints[stage[j].id][z].id %>">
-					<%= checkpoints[stage[j].id][z].name %> 
-					<% if(req.session.userType === "administrator"){%>
-						[<a href="/checkpoint/edit?id=<%= checkpoints[stage[j].id][z].id %>">Edit</a>]
-					<% } %>
-				<% }%></td>
-		<% } %>
+			<tr><td width="80%"><%= flightplans[i].name %></td>
+				<td>
+					<a href="/flightplan/view?id=<%=flightplans[i].id%>" class="btn btn-default">View</a> 
+				</td></tr>
 		
-	</tr>
-	<% } %>
-	</tbody>
+		<% } %> 
+	</tbody> 
 	</table>
-
 </div>
-<% } %>
-
-<% if(req.session.userType === "administrator"){ %>
-
-	<div style="padding: 30px 30px;">
-		<h2>Welcome back Admin!</h2>
-		<h5>Use the links above to navigate and manage</h5>
-	</div>
-
-<% } %>
-
-<% if(req.session.userType === "advisor"){ %>
-
-	<div style="padding: 30px 30px;">
-		<h2>Welcome back Advisor!</h2>
-		<h5>Use the links above to navigate and manage</h5>
-	</div>
-
-<% } %>
-
-    
-
+  
+  
+  
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script>
-
-$("#checkpoint").on("click", function(){
-
-	var id = $(this).attr("cid");
-	var status = 'unchecked';
-	
-	//Check if checked or unchecked.
-	if(this.checked == true){
-		status = "checked";
-	}
-	
-	
-	$.ajax({
-	
-		type: "GET",
-		url: "/checkpoint/checkoff",
-		data: "id="+id+"&status="+status,
-		dataType: "json",
-		success: function(){
-			alert("Saved!");
-		}
-	
-	})
-	
-	
-
-});
-
-</script>
 </body>
 </html>

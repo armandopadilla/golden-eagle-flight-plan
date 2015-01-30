@@ -89,6 +89,15 @@ module.exports = {
 			return;
 		}
 		
+		
+		//If the user is not a student show the admin/advisor landing page.
+		if(req.session.userType !== "student"){
+			
+			res.render('index/home', {});
+			
+		}
+		
+		
 		//Check if the user has access to the flight plan.
 		//Note I would have placed this in the model in a pre fetch hook
 		//but it seems waterline the ORM doesnt have this for fetching...:-|...weak.
