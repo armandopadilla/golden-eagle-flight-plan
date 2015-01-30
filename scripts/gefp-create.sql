@@ -130,6 +130,11 @@ INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, 
 INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Make a list of questions to ask during orientation and ask them!', 3, 1, '', '', 1, 'unchecked', NOW(), NOW());
 INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Find out about ECST student organizations at ECST week ', 3, 2, '', '', 1, 'unchecked', NOW(), NOW());
 
+#ADD STAGES
+INSERT INTO stages (name, flightplan, createdAt, updatedAt) VALUES ('Pre-College (pre-flight checklist)', 1, NOW(), NOW());
+INSERT INTO stages (name, flightplan, createdAt, updatedAt) VALUES ('Freshman (take-off)', 1, NOW(), NOW());
+INSERT INTO stages (name, flightplan, createdAt, updatedAt) VALUES ('Pre-College (pre-flight checklist)', 2, NOW(), NOW());
+INSERT INTO stages (name, flightplan, createdAt, updatedAt) VALUES ('Freshman (take-off)', 2, NOW(), NOW());
 
 #ADD RUNWAY
 #Flightplan 1
@@ -141,12 +146,3 @@ INSERT INTO runways (name, flightplan, createdAt, updatedAt) VALUES ('Leadership
 INSERT INTO runways (name, flightplan, createdAt, updatedAt) VALUES ('Academics', 2, NOW(), NOW());
 INSERT INTO runways (name, flightplan, createdAt, updatedAt) VALUES ('Career Preparation', 2, NOW(), NOW());
 INSERT INTO runways (name, flightplan, createdAt, updatedAt) VALUES ('Leadership & Community Engagement', 2, NOW(), NOW());
-
-#ADD STAGE                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-#Flightplan 1
-INSERT INTO stages (name, flightplan, createdAt, updatedAt) VALUES ('Pre-College (pre-flight checklist)', 1, NOW(), NOW());
-INSERT INTO stages (name, flightplan, createdAt, updatedAt) VALUES ('Freshman (take-off)', 1, NOW(), NOW());
-
-#Flightplan 2
-INSERT INTO stages (name, flightplan, createdAt, updatedAt) VALUES ('Pre-College (pre-flight checklist)', 2, NOW(), NOW());
-INSERT INTO stages (name, flightplan, createdAt, updatedAt) VALUES ('Freshman (take-off)', 2, NOW(), NOW());

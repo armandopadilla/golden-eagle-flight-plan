@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Golden Eagle Fligh Plan</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+
+</head>
+
+<body style="padding-top: 50px;">
+
+	<%- partial('../nav') %>
+
+
+<div style="padding: 30px 30px;">
+<h3>Manage Department Flightplans</h3>
+	<table class="table table-striped table-bordered">
+	<thead>
+		<tr><td>Name</td><td>Options</td></tr>
+	</thead>
+	<tbody>
+		<% for(var i=0; i<flightplans.length; i++) { %>
+		
+			<tr><td width="80%"><%= flightplans[i].user.username %>'s Flightplan</td>
+				<td>
+					<a href="/flightplan/view?id=<%=flightplans[i].id%>" class="btn btn-default">View</a> 
+				</td></tr>
+		
+		<% } %> 
+	</tbody> 
+	</table>
+</div>
+  
+  
+  
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

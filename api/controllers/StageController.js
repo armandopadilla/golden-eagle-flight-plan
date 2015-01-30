@@ -13,6 +13,9 @@ module.exports = {
 		}
 		
 		//Check the user is an admin
+		if(req.session.userType != 'administrator'){
+			res.redirect("/home");
+		}
 
 		
 		//Pull.
@@ -36,7 +39,14 @@ module.exports = {
 			return;
 		}
 		
-		//Check permissions.
+		//Check the user is an admin\
+		stage.hasCreateAccess(req.session.userType, function(err, status){
+			
+			if(!status){
+				res.redirect("/home");
+			}
+			
+		});
 		
 		res.render('stage/add');
 	},
@@ -52,6 +62,15 @@ module.exports = {
 			res.redirect("/login");
 			return;
 		}
+		
+		stage.hasCreateAccess(req.session.userType, function(err, status){
+			
+			if(!status){
+				res.redirect("/home");
+			}
+			
+		});
+
 		
 		//Fetch the name of the new stage
 		var stageName = req.param("stage_name");
@@ -80,6 +99,16 @@ module.exports = {
 			return;
 		}
 		
+		//Check the user is an admin
+		stage.hasUpdateAccess(req.session.userType, function(err, status){
+			
+			if(!status){
+				res.redirect("/home");
+			}
+			
+		});
+		
+		
 		//Initialize 
 		var stageId = req.param("id");
 		
@@ -101,6 +130,16 @@ module.exports = {
 			res.redirect("/login");
 			return;
 		}
+		
+		//Check the user is an admin
+		stage.hasUpdateAccess(req.session.userType, function(err, status){
+			
+			if(!status){
+				res.redirect("/home");
+			}
+			
+		});
+		
 		
 		var stageId = req.param("id"),
 			name = req.param("name");
@@ -125,6 +164,15 @@ module.exports = {
 			res.redirect("/login");
 			return;
 		}
+		
+		//Check the user is an admin
+		stage.hasDeleteAccess(req.session.userType, function(err, status){
+			
+			if(!status){
+				res.redirect("/home");
+			}
+			
+		});
 		
 		var stageId = req.param("id");
 		

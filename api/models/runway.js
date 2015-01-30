@@ -29,7 +29,9 @@ module.exports  = {
 		
 		//If the users is an admin then OK
 		if(userType === "administrator"){
-			return cb(null, true);
+			cb(null, true);
+		}else{
+			cb(null, false);
 		}
 		
 	},
@@ -38,7 +40,9 @@ module.exports  = {
 		
 		//If the users is an admin then OK
 		if(userType === "administrator"){
-			return cb(null, true);
+			cb(null, true);
+		}else{
+			cb(null, false);
 		}
 		
 	},
@@ -47,7 +51,9 @@ module.exports  = {
 		
 		//If the users is an admin then OK
 		if(userType === "administrator"){
-			return cb(null, true);
+			cb(null, true);
+		}else{
+			cb(null, false);
 		}
 	}
 	

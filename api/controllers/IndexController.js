@@ -52,6 +52,13 @@ module.exports = {
 				req.session.departmentName = userResp.department.name || "Admin";
 				req.session.flightplan	   = userResp.flightplan || 0;
 				
+				flightplan.find({"department" : userResp.department.id, "user" : "0"}).then(function(plan){
+					
+					req.session.flightplanTId  = plan.id;
+					
+				});
+				
+				
 				//Send the user to the home page.
 				res.json({"status" : "OK", "data" : {"valid" : "yes"}}, 200);
 				
@@ -108,12 +115,12 @@ module.exports = {
 			}
 			
 			//Fetch the content
-			runway.find({}, function(err, r){
+			runway.find({"flightplan" : req.session.flightplanTId}, function(err, r){
 				
-				stage.find({}, function(err, s){
+				stage.find({"flightplan" : req.session.flightplanTId}, function(err, s){
 					
 					//Create the row
-					checkpoint.find({}, function(err, c){
+					checkpoint.find({"flightplan" : req.session.flightplanId}, function(err, c){
 						
 						//Create an array
 						var xx = [];

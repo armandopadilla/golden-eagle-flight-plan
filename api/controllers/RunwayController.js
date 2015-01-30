@@ -11,6 +11,11 @@ module.exports = {
 			return;
 		}
 		
+		//Check the user is an admin
+		if(req.session.userType != 'administrator'){
+			res.redirect("/home");
+		}
+		
 		//Pull.
 		runway.find({}).then(function(runways){
 			
@@ -33,6 +38,15 @@ module.exports = {
 			return;
 		}
 		
+		//Check the user is an admin
+		runway.hasCreateAccess(req.session.userType, function(err, status){
+			
+			if(!status){
+				res.redirect("/home");
+			}
+		});
+		
+		
 		res.render("runway/add");
 		
 	},
@@ -47,6 +61,15 @@ module.exports = {
 			res.redirect("/login");
 			return;
 		}
+		
+		//Check the user is an admin
+		runway.hasCreateAccess(req.session.userType, function(err, status){
+			
+			if(!status){
+				res.redirect("/home");
+			}
+			
+		});
 		
 		var runwayName = req.param("name");
 		
@@ -77,6 +100,15 @@ module.exports = {
 			return;
 		}
 		
+		//Check the user is an admin
+		runway.hasUpdateAccess(req.session.userType, function(err, status){
+			
+			if(!status){
+				res.redirect("/home");
+			}
+			
+		});
+		
 		var id   = req.param("id");
 		
 		runway.findOne({"id" : id}).then(function(resp){
@@ -93,6 +125,14 @@ module.exports = {
 			res.redirect("/login");
 			return;
 		}
+		
+		//Check the user is an admin
+		runway.hasUpdateAccess(req.session.userType, function(err, status){
+			
+			if(!status){
+				res.redirect("/home");
+			}
+		});
 		
 		var name = req.param("name"),
 		id   = req.param("id");
@@ -113,6 +153,15 @@ module.exports = {
 			res.redirect("/login");
 			return;
 		}
+		
+		//Check the user is an admin
+		runway.hasDeleteAccess(req.session.userType, function(err, status){
+			
+			if(!status){
+				res.redirect("/home");
+			}
+			
+		});
 		
 		var id = req.param("id");
 		

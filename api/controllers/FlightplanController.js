@@ -18,9 +18,9 @@ module.exports = {
 		
 		
 		/**
-		 * View all flightplans in the system.
+		 * View all user flightplans in the system.
 		 */
-		all : function(){
+		all : function(req, res){
 			
 			if(req.session.userId === undefined){
 				res.redirect("/login");
@@ -29,7 +29,7 @@ module.exports = {
 			
 			//Make sure the user is an advisor.
 			
-			flightplan.find({"user" : ""}).populateAll().then(function(resp){
+			flightplan.find({"user" : {'!' : '0'}}).populateAll().then(function(resp){
 				
 				res.render("flightplan/all", {flightplans: resp});
 				
@@ -93,7 +93,7 @@ module.exports = {
 							    "userType" : req.session.userType,
 							    "major" : req.session.departmentName };
 				
-						res.render('index/home', response);
+						res.render('flightplan/view', response);
 						
 					});
 				});

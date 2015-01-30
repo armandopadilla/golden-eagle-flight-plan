@@ -31,24 +31,30 @@ module.exports  = {
 	hasUpdateAccess : function(userType, cb){
 		
 		//If the users is an admin then OK
-		if(userType === "adminstrator"){
-			return cb(null, true);
+		if(userType === "administrator"){
+			cb(null, true);
+		}else{
+			cb(null, false);
 		}
 		
 	},
 	
 	hasDeleteAccess : function(userType, cb){
 		
-		if(userType === "adminstrator"){
-			return cb(null, true);
+		if(userType === "administrator"){
+			cb(null, true);
+		}else{
+			cb(null, false);
 		}
 		
 	},
 	
 	hasCreateAccess : function(userType, cb){
 		
-		if(userType === "adminstrator"){
-			return cb(null, true);
+		if(userType === "administrator"){
+			cb(null, true);
+		}else{
+			cb(null, false);
 		}
 		
 	}
