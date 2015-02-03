@@ -70,6 +70,10 @@ module.exports = {
 		//Fetch the plan
 		flightplan.findOne({"user" : userId}).then(function(resp){
 			
+			if(resp === undefined){
+				return cb(null, false);
+			}
+			
 			//If its the owner then OK
 			if(flightplanId === resp.flightplanId){
 				return cb(null, true);

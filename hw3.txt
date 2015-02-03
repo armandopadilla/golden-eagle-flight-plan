@@ -1,0 +1,29 @@
+PLEASE SEE INCLUDED HW3.HTML FILE ASWELL
+
+
+I sometimes take the stand of the user when building products.  
+In this case, any updates made by an administrator should reflect on the user's side at a specific time 
+designated time or send the users a notification as to scheduled maintenance. From a usability 
+stand point having a complex grid such as the flightplan table update instantly would be a terrible experience.    
+So, when is the right time to update the system? I would first take a look at our traffic pattersn and 
+identify when there is overall less users utilizing the system.  Using Google analytics or even chartbeat 
+would be ideal for this.  For argument sake, lets say that Saturdays at 2am is the low traffic hour.   
+We would "publish" the changes then and all user's flightplans would reflect the new changes as soon as they logged back into 
+the system. The current implementation does take into account revisions and will soon force the user to use the most up to date
+flighplan revision for a department. 
+
+If an andministrator makes a modification to a departments flightplan the user will retain their 
+own copy along with the newly created or removed items.  Each newly created item will be highlited 
+yellow while anything that has been removed will be highlighted red (TODO).  For historical auditing this is 
+important to the user and the administrators/advisors since we dont want to lose any of the time and effort a user 
+has commited to checkpoints already.  My system contains a "revision" column which accomidates this feature. Though its 
+currently still in development it will allow a user to see the different changes to their oveall flightplan structure 
+throughout time. 
+
+If the student decides to change major the system allows the student to have multiple flightplans but only posses 
+a single "active" flight plan at any given time.  The ORM design accomidates this and is presented in the 
+user model.   On the site itself the user can navigate to the "Flightplans" link and view all flightplans they 
+have accumulated over their use of the app.  
+
+
+

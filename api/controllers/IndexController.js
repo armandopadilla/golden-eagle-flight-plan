@@ -34,15 +34,13 @@ module.exports = {
 		var username = req.param("username"),
 			password = req.param("password");
 		
-		
-		user.findOneByUsername(username).populateAll().then(function(userResp){
+		user.authenticate(username, password, function(status, userResp){
 			
-			if(userResp === undefined){
+			if(status === false){
 				res.json({"status" : "OK", "data" : {"error_message" : "Username or password not valid.", "valid" : "no"}}, 200);
 				return;
 			}
-			
-			if(userResp.password === password){
+			else{
 				
 				//Set the sessions.
 				req.session.username       = userResp.username;
@@ -54,7 +52,7 @@ module.exports = {
 				
 				flightplan.find({"department" : userResp.department.id, "user" : "0"}).then(function(plan){
 					
-					req.session.flightplanTId  = plan.id;
+					req.session.flightplanTId  = (plan === undefined)? null : plan.id;
 					
 				});
 				
@@ -62,9 +60,6 @@ module.exports = {
 				//Send the user to the home page.
 				res.json({"status" : "OK", "data" : {"valid" : "yes"}}, 200);
 				
-			}
-			else{
-				res.json({"status" : "OK", "data" : {"error_message" : "Username or password not valid.", "valid" : "no"}}, 200);
 			}
 			
 		});
@@ -101,7 +96,7 @@ module.exports = {
 		if(req.session.userType !== "student"){
 			
 			res.render('index/home', {});
-			
+			return;
 		}
 		
 		

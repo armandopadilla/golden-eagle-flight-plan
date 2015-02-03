@@ -49,9 +49,22 @@ module.exports = {
 	/**
 	 * Authenticate.
 	 */
-	authenticate : function(){
+	authenticate : function(username, password, cb){
 		
-		
+		user.findOneByUsername(username).populateAll().then(function(resp){
+			
+			if(resp === undefined){
+				return cb(false, null);
+			}
+			
+			if(resp.password === password){
+				return cb(true, resp);
+			}
+			else{
+				return cb(false, null);
+			}
+			
+		});
 		
 	},
 	
