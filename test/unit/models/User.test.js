@@ -89,4 +89,21 @@ describe("UserModel", function(){
 		
 	});
 	
+	//Test #4 - Test Authentication
+	describe("Check Authentication - valid and invalid logins.", function(){
+		
+		it("should check for correct login", function(done){
+			
+			//
+			
+		});
+		
+		it("should check for bad login", function(done){
+			
+			//
+			
+		})
+		
+	})
+	
 });
