@@ -37,20 +37,24 @@
 	<% for(var j=0; j<stage.length; j++){%>
 	<tr>
 		<td>
-			<%= stage[j].name %> 
+			<%= stage[j].name %>  - stage
 			<% if(req.session.userType === "administrator"){%>
 				[<a href="/stage/edit?id=<%= stage[j].id %>">Edit</a>]
 			<% } %>
 		</td>
 		
-		<% for(var z=0; z<checkpoints[stage[j].id].length; z++){ %>
-			<td><% if(checkpoints[stage[j].id][z]){ %>
-					<input type="checkbox" id="checkpoint" cid="<%= checkpoints[stage[j].id][z].id %>">
-					<%= checkpoints[stage[j].id][z].name %> 
-					<% if(req.session.userType === "administrator"){%>
-						[<a href="/checkpoint/edit?id=<%= checkpoints[stage[j].id][z].id %>">Edit</a>]
-					<% } %>
-				<% }%></td>
+		<% for(var z=0; z<runway.length; z++) {%>
+			
+			<td>
+			<% try{ %>
+			
+				<% for(var a=0; a<checkpoints[runway[z].id][stage[j].id].length; a++){ %>
+					<%= checkpoints[runway[z].id][stage[j].id][a].name %><br>
+				<% } %>
+				
+			<% }catch(err){} %>
+			</td>
+			
 		<% } %>
 		
 	</tr>

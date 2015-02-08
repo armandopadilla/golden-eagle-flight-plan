@@ -63,10 +63,10 @@ module.exports = {
 		 */
 		view: function(req, res){
 			
-			if(req.session.userId === undefined){
-				res.redirect("/login");
-				return;
-			}
+			//if(req.session.userId === undefined){
+			//	res.redirect("/login");
+			//	return;
+			//}
 			
 			var id = req.param("id");
 			
@@ -75,26 +75,36 @@ module.exports = {
 				
 				stage.find({"flightplan" : id}, function(err, s){
 					
-					//Create the row
+					//Fetch the checkpoints
 					checkpoint.find({"flightplan" : id}, function(err, c){
 						
-						//Create an array
-						var xx = [];
+						//Create a container
+						var container = [];
 						for(var i=0; i<c.length; i++){
 							
-							xx[c[i].runway] = [];
-							xx[c[i].runway][c[i].stage] = c[i];
+							
+							//initialize the array for the runway and stage
+							if(typeof container[c[i].runway] != "object"){
+								container[c[i].runway] = [];
+								
+							}
+							
+							if(typeof container[c[i].runway][c[i].stage] != "object"){
+								container[c[i].runway][c[i].stage] = [];
+							}
+							
+							container[c[i].runway][c[i].stage].push(c[i]);
 						}
-					
+
 						var response = {"runway" : r,
 							    "stage" : s,
-							    "checkpoints" : xx,
+							    "checkpoints" : container || [],
 							    "username" : req.session.username,
 							    "userType" : req.session.userType,
 							    "major" : req.session.departmentName };
 				
 						res.render('flightplan/view', response);
-						
+					
 					});
 				});
 			});

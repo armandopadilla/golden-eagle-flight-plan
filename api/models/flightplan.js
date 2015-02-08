@@ -50,7 +50,14 @@ module.exports = {
 		checkpoints : {
 			collection: "checkpoint",
 			via: "flightplan"
+		},
+		
+		name: {
+			type: 'string',
+			required: true,
+			size: 300
 		}
+		
 		
 	},
 	
