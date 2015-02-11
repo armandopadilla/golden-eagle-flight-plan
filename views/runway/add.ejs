@@ -1,19 +1,4 @@
-<html>
-<head>
-<title>Golden Eagle Fligh Plan</title>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-
-</head>
-
-<body style="padding-top: 50px;">
-
-<%- partial('../nav') %>
+<%- partial('../header') %>
     
 <div style="padding: 30px 30px;">
 <h3>Add Runway</h3>
@@ -28,15 +13,12 @@
 </form>
 	
 
-
-
 </div>
   
   
   
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
 $("#btnAddRunway").on("click", function(){
 	
@@ -63,5 +45,4 @@ $("#btnAddRunway").on("click", function(){
 
 </script>
 
-</body>
-</html>
+<%- partial('../footer') %>

@@ -60,4 +60,7 @@ module.exports.globals = {
   ****************************************************************************/
 
 	// models: true
+		
+		
+	title : "Golden Eagle Flight Plan"
 };

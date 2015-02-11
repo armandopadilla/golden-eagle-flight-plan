@@ -1,35 +1,17 @@
-<html>
-<head>
-<title>Golden Eagle Fligh Plan</title>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-
-</head>
-
-<body style="padding-top: 50px;">
-
-<%- partial('../nav') %>
+<%- partial('../header') %>
     
 <div style="padding: 30px 30px;">
 <h3>Add Plan</h3>
 
-<form>
-<div class="form-group">
-	<label for="stage_name">Name</label>
-	<input type="text" name="stage_name" id="name" class="form-control" placeholder="Name">
-</div>
-<button type="button" class="btn btn-default" id="btnAddPlan">Add</button>
-<input type="hidden" id="did" value="<%= departmentId %>" />
-</form>
+	<form>
+	<div class="form-group">
+		<label for="stage_name">Name</label>
+		<input type="text" name="stage_name" id="name" class="form-control" placeholder="Name">
+	</div>
+	<button type="button" class="btn btn-default" id="btnAddPlan">Add</button>
+	<input type="hidden" id="did" value="<%= departmentId %>" />
+	</form>
 	
-
-
-
 </div>
   
   
@@ -63,5 +45,5 @@ $("#btnAddPlan").on("click", function(){
 });
 
 </script>
-</body>
-</html>
+
+<%- partial('../footer') %>
