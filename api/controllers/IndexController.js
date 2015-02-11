@@ -110,33 +110,48 @@ module.exports = {
 			}
 			
 			//Fetch the content
-			runway.find({"flightplan" : req.session.flightplanTId}, function(err, r){
+			var id = req.session.flightplan.id;
+			
+			runway.find({"flightplan" : id}, function(err, r){
 				
-				stage.find({"flightplan" : req.session.flightplanTId}, function(err, s){
+				stage.find({"flightplan" : id}, function(err, s){
 					
-					//Create the row
-					checkpoint.find({"flightplan" : req.session.flightplanId}, function(err, c){
+					//Fetch the checkpoints
+					checkpoint.find({"flightplan" : id}, function(err, c){
 						
-						//Create an array
-						var xx = [];
+						//Create a container
+						var container = [];
 						for(var i=0; i<c.length; i++){
 							
-							xx[c[i].runway] = [];
-							xx[c[i].runway][c[i].stage] = c[i];
+							
+							//initialize the array for the runway and stage
+							if(typeof container[c[i].runway] != "object"){
+								container[c[i].runway] = [];
+								
+							}
+							
+							if(typeof container[c[i].runway][c[i].stage] != "object"){
+								container[c[i].runway][c[i].stage] = [];
+							}
+							
+							container[c[i].runway][c[i].stage].push(c[i]);
 						}
-					
+
 						var response = {"runway" : r,
 							    "stage" : s,
-							    "checkpoints" : xx,
+							    "checkpoints" : container || [],
 							    "username" : req.session.username,
 							    "userType" : req.session.userType,
-							    "major" : req.session.departmentName };
+							    "major" : req.session.departmentName,
+							    "fid" : id};
 				
 						res.render('index/home', response);
-						
+					
 					});
 				});
 			});
+			
+			
 			
 		});
 		

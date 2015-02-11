@@ -172,11 +172,21 @@ module.exports = {
 				flightplan.update({"id" : planId}, {"status" : "active"}, function(err, resp){
 					
 					var data = {"transaction_status" : "SUCCESS"};
+					
 					if(err){
 						data = {"transaction_status" : "FAILED", "error" : err};
 					}
 					else{
-						data = {"transaction_status" : "SUCCESS"};
+						
+						//Update the users flightplans (yea i see what the prof was saying...this approach sucks pretty hard)
+						user.update({"department" : departmentId}, {"flightplan" : planId}, function(err, resp){
+							
+							data = {"transaction_status" : "SUCCESS"};
+							var respObj = {"status" : "OK", "data" :data};
+							res.json(respObj, 200);
+							
+						});
+						
 					}
 					
 					var respObj = {"status" : "OK", "data" :data};
