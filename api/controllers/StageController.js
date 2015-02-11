@@ -48,7 +48,11 @@ module.exports = {
 			
 		});
 		
-		res.render('stage/add');
+		//Initialize vars
+		var fid = req.param("fid") || 0;
+		
+		res.render('stage/add', {"fid" : fid});
+		
 	},
 	
 
@@ -73,9 +77,10 @@ module.exports = {
 
 		
 		//Fetch the name of the new stage
-		var stageName = req.param("stage_name");
+		var stageName = req.param("stage_name"),
+			flightId  = req.param("fid");
 		
-		var stageObj = {"name" : stageName};
+		var stageObj = {"name" : stageName, "flightplan" : flightId};
 		
 		//Save and respond.
 		stage.create(stageObj, function(){

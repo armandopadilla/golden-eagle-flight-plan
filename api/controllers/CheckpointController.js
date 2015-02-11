@@ -12,7 +12,7 @@ module.exports = {
 			return;
 		}
 		
-		var flightplanId = "1"; //req.session.flightplanId;
+		var flightplanId = req.param("fid") || 0;
 		
 		//Fetch the runways and stages.
 		stage.find({"flightplan" : flightplanId}, function(err, stageResp){
@@ -21,8 +21,9 @@ module.exports = {
 				
 				//Set the template vars & display.
 				
-				var templateObj = {runways : runwayResp, 
-								   stages : stageResp};
+				var templateObj = {"runways" : runwayResp, 
+								   "stages" : stageResp,
+								   "fid" : flightplanId};
 				
 				res.render('checkpoint/add', templateObj);
 				
@@ -49,7 +50,7 @@ module.exports = {
 			cp = req.param("checkpoint"),
 			contentType = req.param("content_type"),
 			content 	= req.param("content"),
-			flightplanId = req.session.flightplanId;
+			flightplanId = req.param("fid") || 0;
 			
 		var checkpointObj = {"runway" : runwayId, 
 							 "stage" : stageId,
@@ -89,13 +90,29 @@ module.exports = {
 		}
 		
 		//Initialize vars
-		var checkpointId = req.param("id");
+		var checkpointId = req.param("id"),
+			flightplanId = req.param("fid");
 		
 		//Fetch the checkpoint info
 		checkpoint.findOne({"id" : checkpointId }).populateAll().then(function (resp){
 			
-			//Set the view variables and render
-			res.render('checkpoint/edit', {"checkpoint" : resp });
+			
+			//Fetch the runways
+			runway.find({ "flightplan" : flightplanId }).then(function(respRunways){
+				
+				//Fetch the stages
+				stage.find({ "flightplan" : flightplanId }).then(function(respStages){
+					
+					//Set the view variables and render
+					res.render('checkpoint/edit', {"checkpoint" : resp, 
+												   "runways" : respRunways,
+												   "stages" : respStages,
+												   "fid" : flightplanId });
+					
+				});
+				
+			});
+			
 			
 		});
 			
@@ -116,10 +133,17 @@ module.exports = {
 		var id = req.param("id"),
 			name = req.param("name"),
 			contentType = req.param("content_type"),
-			content = req.param("content");
+			content = req.param("content"),
+			stageId = req.param("stage"),
+			runwayId = req.param("runway");
 		
 		//Update the checkpoint
-		checkpoint.update({"id" : id}, {"name" : name, "contentType" : contentType, "content" : content}, function(err, updates){
+		checkpoint.update({"id" : id}, 
+				{"name" : name, 
+				 "contentType" : contentType, 
+				 "content" : content,
+				 "stage" : stageId, 
+				 "runway" : runwayId}, function(err, updates){
 			
 			var data = {};
 			if(err){

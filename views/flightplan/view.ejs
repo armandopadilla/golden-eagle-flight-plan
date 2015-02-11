@@ -18,6 +18,9 @@
 <div style="padding: 30px 30px;">
 <h3>View Flightplan</h3>
 	
+	<a href="/runway/add?fid=<%=fid%>">Add Runway</a> | 
+	<a href="/stage/add?fid=<%=fid%>">Add Stage</a> | 
+	<a href="/checkpoint/add?fid=<%=fid%>">Add Checkpoints</a>
 	<table class="table table-striped table-bordered">
 	<thead><tr><th></th>
 	<% for(var i=0; i<runway.length; i++){ %>
@@ -49,7 +52,10 @@
 			<% try{ %>
 			
 				<% for(var a=0; a<checkpoints[runway[z].id][stage[j].id].length; a++){ %>
-					<%= checkpoints[runway[z].id][stage[j].id][a].name %><br>
+					<%= checkpoints[runway[z].id][stage[j].id][a].name %> 
+					<% if(req.session.userType === "administrator"){%>
+						[<a href="/checkpoint/edit?id=<%= checkpoints[runway[z].id][stage[j].id][a].id %>&fid=<%= checkpoints[runway[z].id][stage[j].id][a].flightplan %>">Edit</a>]
+					<% } %><br>
 				<% } %>
 				
 			<% }catch(err){} %>

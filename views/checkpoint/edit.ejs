@@ -1,29 +1,75 @@
-<a href="/">Home</a> | <a href="/checkpoint/add">Add a Stage</a>
+<html>
+<head>
+<title>Golden Eagle Fligh Plan</title>
 
-<br><br>
-<table>
-<tr><td>Runway:</td>
-	<td><% if(checkpoint.runway){%><%= checkpoint.runway.name %><%}else{%>No Runway<%}%></td></tr>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-<tr><td>Stage:</td>
-	<td><%= checkpoint.stage.name %></td></tr>
-<tr><td>Name:</td><td><input type="text" id="checkpoint" value="<%= checkpoint.name %>"></td></tr>
-<tr><td colspan="2"></td></tr>
-<tr><td>Content Type</td>
-	<td><select id="content_type">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+
+</head>
+
+<body style="padding-top: 50px;">
+
+<%- partial('../nav') %>
+    
+<div style="padding: 30px 30px;">
+<h3>Edit Checkpoint</h3>
+
+<form>
+<div class="form-group">
+	<label for="runway">Runway:</label>
+	<select id="runway_id" class="form-control">
+	<% for(var i=0; i<runways.length; i++) { %>
+		<option value="<%= runways[i].id %>" <% if(checkpoint.runway.id === runways[i].id){ %>selected<% } %>><%= runways[i].name %></option>
+	<% } %>
+	</select>
+</div>
+<div class="form-group">
+	<label for="stage">Stage:</label>
+	<select id="stage_id" class="form-control">
+	<% for(var i=0; i<stages.length; i++) { %>
+		<option value="<%= stages[i].id %>" <% if(checkpoint.stage.id === stages[i].id){ %>selected<% } %>><%= stages[i].name %></option>
+	<% } %>
+	</select>
+</div>
+<div class="form-group">
+	<label for="name">Checkpoint Name:</label>
+	<input type="text" id="checkpoint" class="form-control" placeholder="Checkpoint Name" value="<%= checkpoint.name %>" />
+	</select>
+</div>
+<div class="form-group">
+	<label for="content_type">Content Type:</label>
+	<select id="content_type" class="form-control">
 		<option value="">Select Content Type</option>
 		<option value="text" <% if(checkpoint.contentType == "text"){ %>selected<%}%>>Text</option>
 		<option value="url" <% if(checkpoint.contentType == "url"){ %>selected<%}%>>Url</option>
 		<option vaue="file" <% if(checkpoint.contentType == "file"){ %>selected<%}%>>File</option>
-		</select></td></tr>
-		
-
-<tr><td>General Content:</td><td id="content"><input type="text" id="content_text" value="<%= checkpoint.content %>"></td></tr>
-<tr><td colspan="2"><input type="button" value="Edit" id="btnEditCheckpoint" /> &nbsp; 
-<input type="button" value="Delete" id="btnDeleteCheckpoint" /></td></tr>
-</table>
+	</select>
+</div>
+<div class="form-group">
+	<label for="content_type">General Content:</label>
+	<input type="text" id="content_text" class="form-control" value="<%= checkpoint.content %>">
+</div>
+<button type="button" class="btn btn-default" id="btnEditCheckpoint">Edit</button>
+<button type="button" class="btn btn-danger" id="btnDeleteCheckpoint">Delete</button>
+<input type="hidden" value="<%= fid %>" id="fid" />
 <input type="hidden" id="id" value="<%= checkpoint.id %>" />
+</form>
+	
 
+
+
+</div>
+  
+  
+  
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
@@ -32,12 +78,14 @@ $("#btnEditCheckpoint").on("click", function(){
 	var id = $("#id").val(),
 		contentType = $("#content_type").val(),
 		content = $("#content_text").val(),
-		name = $("#checkpoint").val();
+		name = $("#checkpoint").val(),
+		stage = $("#stage_id").val(),
+		runway = $("#runway_id").val();
 
 	$.ajax({
 		
 		type: "GET",
-		data: "id="+id+"&content_type="+contentType+"&content="+content+"&name="+name,
+		data: "id="+id+"&content_type="+contentType+"&content="+content+"&name="+name+"&stage="+stage+"&runway="+runway,
 		url: "/checkpoint/save_edit",
 		success: function(err, resp){
 			alert("Saved Checkpoint!");
@@ -100,3 +148,8 @@ $("#btnDeleteCheckpoint").on("click", function(){
 	
 });
 </script>
+
+
+
+</body>
+</html>

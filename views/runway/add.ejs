@@ -24,7 +24,7 @@
 	<input type="text" name="stage_name" id="runway_name" class="form-control" placeholder="Runway Name">
 </div>
 <button type="button" class="btn btn-default" id="btnAddRunway">Add</button>
-
+<input type="hidden" value="<%= fid %>" id="fid" />
 </form>
 	
 
@@ -40,12 +40,13 @@
 <script>
 $("#btnAddRunway").on("click", function(){
 	
-	var runwayName = $("#runway_name").val();
+	var runwayName = $("#runway_name").val(),
+		planId 	   = $("#fid").val();
 
 	$.ajax({
 		
 		type: "GET",
-		data: "name="+runwayName,
+		data: "name="+encodeURIComponent(runwayName)+"&fid="+planId,
 		url: "/runway/save",
 		success: function(err, resp){
 			alert("Saved Runway!");

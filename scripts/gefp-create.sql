@@ -30,10 +30,11 @@ CREATE TABLE `departments` (
 
 CREATE TABLE `flightplans` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `revision` int(11) DEFAULT NULL,
-  `department` int(11) DEFAULT NULL,
-  `user` int(11) DEFAULT NULL,
+  `revision` int(11) DEFAULT 1,
+  `department` int(11) DEFAULT 0,
+  `user` int(11) DEFAULT 0,
   `name` varchar(300) NOT NULL,
+  `status` varchar(10) NOT NULL DEFAULT 'inactive',
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)

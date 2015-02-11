@@ -38,6 +38,9 @@ module.exports = {
 			return;
 		}
 		
+		//Check if we are adding to a specific flightplan
+		var planId = req.param("fid") || 0;
+		
 		//Check the user is an admin
 		runway.hasCreateAccess(req.session.userType, function(err, status){
 			
@@ -47,7 +50,7 @@ module.exports = {
 		});
 		
 		
-		res.render("runway/add");
+		res.render("runway/add", {"fid" :  planId});
 		
 	},
 	
@@ -71,9 +74,10 @@ module.exports = {
 			
 		});
 		
-		var runwayName = req.param("name");
+		var runwayName = req.param("name"),
+			planId     = req.param("fid");
 		
-		runway.create({"name" : runwayName, "flightplan" : req.session.flightplan}, function(err, resp){
+		runway.create({"name" : runwayName, "flightplan" : planId}, function(err, resp){
 			
 			var response = {};
 			if(err){

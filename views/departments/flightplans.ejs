@@ -24,11 +24,10 @@
 	<tbody>
 		<% for(var i=0; i<plans.length; i++) { %>
 		
-			<tr><td width="70%"><%= plans[i].name %></td>
+			<tr><td width="60%"><% if(plans[i].status === "active"){%> (*) <%}%><%= plans[i].name %></td>
 				<td>
-					<a href="/flightplan/view?id=<%=plans[i].id %>" class="btn btn-default">View Plan</a>
-					<a href="/flightplan/view?id=<%=plans[i].id  %>" class="btn btn-default">Set as Official</a>
-					<a href="/flightplan/view?id=<%=plans[i].id  %>" class="btn btn-default">Remove Plan</a> 
+					<a href="/flightplan/view?id=<%=plans[i].id %>" class="btn btn-default">Edit/View Plan</a>
+					<button fid="<%=plans[i].id  %>" did="<%=plans[i].department %>" class="btn btn-default btnSetOfficial">Set as Official</a>
 				</td>
 			</tr>
 		
@@ -42,5 +41,32 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script>
+$(".btnSetOfficial").on("click", function(){
+
+	var flightId = $(this).attr("fid"),
+		departmentId = $(this).attr("did");
+	
+	$.ajax({
+	
+		url: '/flightplan/setasofficial',
+		type: 'GET',
+		dataType: 'json',
+		data: 'fid='+flightId+"&did="+departmentId,
+		success: function(){
+			
+			alert("Flightplan now active");
+		
+		},
+		error: function(){
+			alert("Error!");
+		}
+	
+	
+	});
+
+
+});
+</script>
 </body>
 </html>

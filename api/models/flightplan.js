@@ -56,6 +56,13 @@ module.exports = {
 			type: 'string',
 			required: true,
 			size: 300
+		},
+		
+		status: {
+			
+			type: "string",
+			required: true
+			
 		}
 		
 		

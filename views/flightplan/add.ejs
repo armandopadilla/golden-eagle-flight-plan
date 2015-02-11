@@ -16,15 +16,15 @@
 <%- partial('../nav') %>
     
 <div style="padding: 30px 30px;">
-<h3>Add Stage</h3>
+<h3>Add Plan</h3>
 
 <form>
 <div class="form-group">
-	<label for="stage_name">Stage</label>
-	<input type="text" name="stage_name" id="stage_name" class="form-control" placeholder="Stage Name">
+	<label for="stage_name">Name</label>
+	<input type="text" name="stage_name" id="name" class="form-control" placeholder="Name">
 </div>
-<button type="button" class="btn btn-default" id="btnAddStage">Add</button>
-<input type="hidden" value="<%= fid %>" id="fid" />
+<button type="button" class="btn btn-default" id="btnAddPlan">Add</button>
+<input type="hidden" id="did" value="<%= departmentId %>" />
 </form>
 	
 
@@ -38,18 +38,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
-$("#btnAddStage").on("click", function(){
+$("#btnAddPlan").on("click", function(){
 	
-	var stage_name = $("#stage_name").val(),
-		fid = $("#fid").val();
+	var name = encodeURIComponent($("#name").val()),
+		departmentId = encodeURIComponent($("#did").val());
 
 	$.ajax({
 		
-		type: "GET",
-		data: "stage_name="+encodeURIComponent(stage_name)+"&fid="+fid,
-		url: "/stage/save",
+		type: "POST",
+		data: "name="+name+"&did="+departmentId,
+		url: "/flightplan/save",
 		success: function(err, resp){
-			alert("Saved Stage!");
+			alert("Saved Plan!");
+			
 		},
 		error: function(err, resp){
 			
