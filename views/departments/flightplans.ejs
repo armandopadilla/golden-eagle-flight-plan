@@ -12,6 +12,7 @@
 			<tr><td width="60%"><% if(plans[i].status === "active"){%> (*) <%}%><%= plans[i].name %></td>
 				<td>
 					<a href="/flightplan/view?id=<%=plans[i].id %>" class="btn btn-default">Edit/View Plan</a>
+					<a href="/flightplan/add?did=<%=plans[i].department %>" class="btn btn-default">Add New Plan</a> 
 					<button fid="<%=plans[i].id  %>" did="<%=plans[i].department %>" class="btn btn-default btnSetOfficial">Set as Official</a>
 				</td>
 			</tr>
@@ -25,7 +26,6 @@
   
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
 $(".btnSetOfficial").on("click", function(){
 

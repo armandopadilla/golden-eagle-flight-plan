@@ -12,8 +12,6 @@
 			<tr><td width="70%"><%= departments[i].name %></td>
 				<td>
 					<a href="/departments/<%=departments[i].id %>/flightplans" class="btn btn-default">View All Plans</a>
-					<a href="/flightplan/view?id=<%=departments[i].flightplan %>" class="btn btn-default">Edit Current Plan</a>
-					<a href="/flightplan/add?did=<%= departments[i].id %>" class="btn btn-default">Add New Plan</a> 
 				</td></tr>
 		
 		<% } %> 

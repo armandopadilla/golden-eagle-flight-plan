@@ -19,33 +19,44 @@
 
 module.exports.policies = {
 
-  /***************************************************************************
-  *                                                                          *
-  * Default policy for all controllers and actions (`true` allows public     *
-  * access)                                                                  *
-  *                                                                          *
-  ***************************************************************************/
 
-  // '*': true,
-
-  /***************************************************************************
-  *                                                                          *
-  * Here's an example of mapping some policies to run before a controller    *
-  * and its actions                                                          *
-  *                                                                          *
-  ***************************************************************************/
-	// RabbitController: {
-
-		// Apply the `false` policy as the default for all of RabbitController's actions
-		// (`false` prevents all access, which ensures that nothing bad happens to our rabbits)
-		// '*': false,
-
-		// For the action `nurture`, apply the 'isRabbitMother' policy
-		// (this overrides `false` above)
-		// nurture	: 'isRabbitMother',
-
-		// Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
-		// before letting any users feed our rabbits
-		// feed : ['isNiceToAnimals', 'hasRabbitFood']
-	// }
+  FlightplanController: {
+	  '*': 'isLoggedIn'
+  },
+  
+  StageController: {
+	  '*': 'isLoggedIn',
+	  manage: 'isLoggedIn',
+	  add: 'isLoggedIn',
+	  save: 'isLoggedIn',
+	  edit: 'isLoggedIn',
+	  save_edit: 'isLoggedIn',
+	  delete: 'isLoggedIn'
+  },
+  
+  RunwayController: {
+	  '*': 'isLoggedIn',
+	  manage: 'isAdmin',
+	  add: 'isAdmin',
+	  delete: 'isAdmin',
+	  save_edit: 'isAdmin',
+	  edit: 'isAdmin',
+	  save: 'isAdmin'
+  },
+  
+  CheckpointController: {
+	  '*': 'isLoggedIn',
+	  add: 'isAdmin',
+	  save: 'isAdmin',
+	  edit: 'isAdmin',
+	  save_edit: 'isAdmin',
+	  delete: 'isAdmin'
+  },
+  
+  DepartmentsController: {
+	  '*': 'isLoggedIn',
+	  manage: 'isAdmin'
+  }
+  
+  
 };

@@ -9,9 +9,7 @@ module.exports = {
 		department.find({}).then(function(resDepts){
 			
 			var departments = resDepts || [];
-			console.log(departments);
-			
-			
+
 			res.render('departments/manage', {"departments" :  departments});
 			
 		})
@@ -26,7 +24,6 @@ module.exports = {
 		
 		flightplan.find({"department" : id, "user" : 0}).then(function(resFlightplans){
 			
-			console.log(resFlightplans);
 			//Fetch all 
 			var plans = resFlightplans || [];
 			
@@ -35,9 +32,5 @@ module.exports = {
 		});
 		
 	}
-		
-		
-		
-		
-		
+	
 }

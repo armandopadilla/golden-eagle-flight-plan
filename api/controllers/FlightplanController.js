@@ -6,13 +6,7 @@ module.exports = {
 		 */
 		index : function(){
 			
-			if(req.session.userId === undefined){
-				res.redirect("/login");
-				return;
-			}
-			
 			res.render();
-			
 			
 		},
 		
@@ -22,13 +16,8 @@ module.exports = {
 		 */
 		all : function(req, res){
 			
-			if(req.session.userId === undefined){
-				res.redirect("/login");
-				return;
-			}
-			
 			//Make sure the user is an advisor.
-			
+
 			flightplan.find({"user" : {'!' : '0'}}).populateAll().then(function(resp){
 				
 				res.render("flightplan/all", {flightplans: resp});
@@ -39,15 +28,10 @@ module.exports = {
 		
 		
 		/**
-		 * Mange all flightplans. 
+		 * Manage all flightplans. 
 		 * Remove, View, Edit.
 		 */
 		manage : function(req, res){
-			
-			if(req.session.userId === undefined){
-				res.redirect("/login");
-				return;
-			}
 			
 			flightplan.find({}).populateAll().then(function(resp){
 				
@@ -62,11 +46,6 @@ module.exports = {
 		 * View a specific flightplan.
 		 */
 		view: function(req, res){
-			
-			//if(req.session.userId === undefined){
-			//	res.redirect("/login");
-			//	return;
-			//}
 			
 			var id = req.param("id");
 			

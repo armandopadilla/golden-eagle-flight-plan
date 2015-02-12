@@ -23,41 +23,6 @@ module.exports  = {
 			model : "flightplan"
 		}
 			
-	},
-	
-	/**
-	 * Check if user can update stages.
-	 */
-	hasUpdateAccess : function(userType, cb){
-		
-		//If the users is an admin then OK
-		if(userType === "administrator"){
-			cb(null, true);
-		}else{
-			cb(null, false);
-		}
-		
-	},
-	
-	hasDeleteAccess : function(userType, cb){
-		
-		if(userType === "administrator"){
-			cb(null, true);
-		}else{
-			cb(null, false);
-		}
-		
-	},
-	
-	hasCreateAccess : function(userType, cb){
-		
-		if(userType === "administrator"){
-			cb(null, true);
-		}else{
-			cb(null, false);
-		}
-		
 	}
-	
 	
 }

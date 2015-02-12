@@ -53,32 +53,6 @@ module.exports  = {
 			enum: ["checked", "unchecked"]
 		}
 			
-	},
-	
-	/**
-	 * Check is the user can delete a checkpoint.
-	 * Only administrators can delete a checkpoint.
-	 */
-	hasDeleteAccess : function(userType, cb){
-		
-		//If the users is an admin then OK
-		if(userType === "administrator"){
-			return cb(null, true);
-		}
-		
-	},
-	
-	
-	/**
-	 * Check of the user can add new checkpoints.
-	 */
-	hasCreateAccess : function(userType, cb){
-		
-		//If the users is an admin then OK
-		if(userType === "administrator"){
-			return cb(null, true);
-		}
-		
 	}
 	
 }

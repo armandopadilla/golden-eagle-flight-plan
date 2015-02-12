@@ -1,16 +1,10 @@
 module.exports = {
 		
 		
-		
 	/**
 	 * Add Form.
 	 */
 	add : function(req, res){
-		
-		if(req.session.userId === undefined){
-			res.redirect("/login");
-			return;
-		}
 		
 		var flightplanId = req.param("fid") || 0;
 		
@@ -39,12 +33,7 @@ module.exports = {
 	 * 
 	 */
 	save : function(req, res){
-		
-		if(req.session.userId === undefined){
-			res.redirect("/login");
-			return;
-		}
-		
+
 		var runwayId = req.param("runway_id"),
 			stageId  = req.param("stage_id"),
 			cp = req.param("checkpoint"),
@@ -83,12 +72,7 @@ module.exports = {
 	 * Edit the checkpoint Form.
 	 */
 	edit : function(req, res){
-		
-		if(req.session.userId === undefined){
-			res.redirect("/login");
-			return;
-		}
-		
+
 		//Initialize vars
 		var checkpointId = req.param("id"),
 			flightplanId = req.param("fid");
@@ -123,12 +107,7 @@ module.exports = {
 	 * Update the checkpoint
 	 */
 	save_edit: function(req,res){
-		
-		if(req.session.userId === undefined){
-			res.redirect("/login");
-			return;
-		}
-		
+
 		//Fetch values
 		var id = req.param("id"),
 			name = req.param("name"),
@@ -165,12 +144,7 @@ module.exports = {
 	 * Delete the checkpoint.
 	 */
 	delete : function(req, res){
-		
-		if(req.session.userId === undefined){
-			res.redirect("/login");
-			return;
-		}
-		
+
 		//Fetch the value
 		var checkpointId = req.param("id");
 		
@@ -196,12 +170,7 @@ module.exports = {
 	 * Update the checkpoint status (ajax call in grid)
 	 */
 	checkoff: function(req,res){
-		
-		if(req.session.userId === undefined){
-			res.redirect("/login");
-			return;
-		}
-		
+
 		//Fetch values
 		var id = req.param("id"),
 			status = req.param("status");
