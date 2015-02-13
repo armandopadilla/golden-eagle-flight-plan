@@ -25,7 +25,7 @@
 	<% for(var j=0; j<stage.length; j++){%>
 	<tr>
 		<td>
-			<%= stage[j].name %>  - stage
+			<%= stage[j].name %>
 			<% if(req.session.userType === "administrator"){%>
 				[<a href="/stage/edit?id=<%= stage[j].id %>">Edit</a>]
 			<% } %>
