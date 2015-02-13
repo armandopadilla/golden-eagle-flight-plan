@@ -27,7 +27,7 @@ module.exports = {
 			//Fetch all 
 			var plans = resFlightplans || [];
 			
-			res.render('departments/flightplans', {"plans" : plans});
+			res.render('departments/flightplans', {"plans" : plans, "departmentId" : id});
 			
 		});
 		

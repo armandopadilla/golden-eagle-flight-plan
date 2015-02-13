@@ -1,7 +1,17 @@
 <%- partial('../header') %>
     
 <div style="padding: 30px 30px;">
-<h3>Manage Flightplans</h3>
+
+
+	<div style="width:100%; height:50px">
+		<div style="float:left">
+			<h3>Manage Flightplans</h3>
+		</div>
+		<div style="float:right; position:relative; top: 50%; transform: translateY(-50%)">
+			<a href="/flightplan/add?did=<%= departmentId %>" class="btn btn-default">Add New Plan</a> 
+		</div>
+	</div>
+
 	<table class="table table-striped table-bordered">
 	<thead>
 		<tr><td>Name</td><td>Options</td></tr>
@@ -9,10 +19,9 @@
 	<tbody>
 		<% for(var i=0; i<plans.length; i++) { %>
 		
-			<tr><td width="60%"><% if(plans[i].status === "active"){%> (*) <%}%><%= plans[i].name %></td>
+			<tr><td width="70%"><% if(plans[i].status === "active"){%> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <%}%><%= plans[i].name %></td>
 				<td>
 					<a href="/flightplan/view?id=<%=plans[i].id %>" class="btn btn-default">Edit/View Plan</a>
-					<a href="/flightplan/add?did=<%=plans[i].department %>" class="btn btn-default">Add New Plan</a> 
 					<button fid="<%=plans[i].id  %>" did="<%=plans[i].department %>" class="btn btn-default btnSetOfficial">Set as Official</a>
 				</td>
 			</tr>
@@ -41,6 +50,8 @@ $(".btnSetOfficial").on("click", function(){
 		success: function(){
 			
 			alert("Flightplan now active");
+			//reload the page
+			window.location = '/departments/<%=departmentId%>/flightplans';
 		
 		},
 		error: function(){

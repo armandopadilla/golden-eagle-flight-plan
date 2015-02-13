@@ -15,7 +15,7 @@
 	
 
 <input type="hidden" id="stage_id" value="<%= s.id %>" />
-
+<input type="hidden" id="fid" value="<%= s.flightplan %>" />
 
 </div>
   
@@ -26,8 +26,9 @@
 <script>
 $("#btnUpdateStage").on("click", function(){
 	
-	var stageName = $("#stage_name").val();
+	var stageName = encodeURIComponent($("#stage_name").val());
 	var stageId   = $("#stage_id").val();
+	var fid = $("#fid").val();
 
 	$.ajax({
 		
@@ -35,7 +36,13 @@ $("#btnUpdateStage").on("click", function(){
 		data: "name="+stageName+"&id="+stageId,
 		url: "/stage/save_edit",
 		success: function(err, resp){
+		
 			alert("Updated Stage!");
+			
+			if(fid > 0){
+				window.location = '/flightplan/view?id='+fid;
+			}
+			
 		},
 		error: function(err, resp){
 			alert("Err");

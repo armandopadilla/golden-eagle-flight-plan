@@ -116,7 +116,8 @@ module.exports = {
 			console.log(name+" "+departmentId);
 			var obj = {"name": name, 
 					   "department" : departmentId,
-					   "revision" : 1};
+					   "revision" : 1, 
+					   "status" : "inactive"};
 			
 			//Save 
 			flightplan.create(obj, function(err, resp){

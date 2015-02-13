@@ -11,6 +11,7 @@
 <button type="button" class="btn btn-default" id="btnUpdateRunway">Update</button>
 <button type="button" class="btn btn-danger" id="btnDeleteRunway">Delete</button>
 <input type="hidden" id="id" value="<%= r.id %>" />
+<input type="hidden" id="fid" value="<%= r.flightplan %>" />
 </form>
 	
 
@@ -27,6 +28,7 @@ $("#btnUpdateRunway").on("click", function(){
 	
 	var name = $("#runway_name").val();
 	var id   = $("#id").val();
+	var fid  = $("#fid").val();
 
 	$.ajax({
 		
@@ -34,7 +36,13 @@ $("#btnUpdateRunway").on("click", function(){
 		data: "name="+name+"&id="+id,
 		url: "/runway/save_edit",
 		success: function(err, resp){
+		
 			alert("Updated Runway!");
+			
+			if(fid > 0){
+				window.location = '/flightplan/view?id='+fid;
+			}
+			
 		},
 		error: function(err, resp){
 			alert("Err");
