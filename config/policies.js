@@ -56,6 +56,10 @@ module.exports.policies = {
   DepartmentsController: {
 	  '*': 'isLoggedIn',
 	  manage: 'isAdmin'
+  },
+  
+  UserController: {
+	  '*': 'isLoggedIn'
   }
   
   

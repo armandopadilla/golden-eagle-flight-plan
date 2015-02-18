@@ -56,6 +56,13 @@
             
           </ul>
         </li>
+        
+        
+        <% if(req.session.userType === "student"){ %>
+	    
+	    	 <li><a href="/user/manage" role="button" aria-expanded="false">Manage Profile</a></li>
+	       
+	    <% } %>
       
       
         <li><a href="/logout">Logout</a></li>

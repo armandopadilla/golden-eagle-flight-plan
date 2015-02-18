@@ -30,12 +30,19 @@ module.exports = {
 		password : {
 			type: "string",
 			size : 16,
-			required : true
+			minLength: 4,
+			maxLength: 16,
+			required : true,
+			alphanumeric: true,
+			notEmpty: true
 		},
 		
 		//Each student has a major.
 		department : {
-			model : "department"
+			model : "department",
+			required: true,
+			notEmpty: true,
+			integer: true
 		},
 		
 		//Each student has a copy of a flight plan.

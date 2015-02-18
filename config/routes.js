@@ -5,6 +5,7 @@ module.exports.routes = {
   'post /auth' : 'IndexController.auth',
   'get /home' : 'IndexController.home',
   'get /logout' : 'IndexController.logout',
-  'get /departments/:id/flightplans' : 'DepartmentsController.flightplans'
+  'get /departments/:id/flightplans' : 'DepartmentsController.flightplans',
+  'post /user/save' : 'UserController.save'
 	  
 };

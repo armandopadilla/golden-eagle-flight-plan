@@ -1,0 +1,85 @@
+<%- partial('../header') %>
+
+
+<div style="padding: 30px 30px;">
+<h3>Manage My Profile</h3>
+
+<form>
+<div class="form-group">
+	<label for="email">Username:</label>
+	<input type="text" id="email" class="form-control" value="<%= user.username %>"  disabled>
+</div>
+<div class="form-group">
+	<label for="password">Password: <i>(4-16 characters.  No Special Characters)</i></label>
+	<input type="text" id="password" class="form-control" value="<%= user.password %>">
+</div>
+
+<div class="form-group">
+	<label for="email">Major: <%= user.department.name %></label>
+</div>
+
+<div class="form-group">
+	<select class="form-control" id="major">
+		<option value="">Select Major</option>
+		<% for(var i=0; i<departments.length; i++){ %>
+			<option value="<%= departments[i].id %>"><%= departments[i].name %></option>
+		<% } %>
+	</select>
+</div>
+
+<button type="button" class="btn btn-default" id="btnCancel">Cancel</button>
+<button type="button" class="btn btn-default" id="btnUpdate">Update</button>
+<input type="hidden" value="" id="fid" />
+</form>
+
+</div>
+  
+  
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$("#btnCancel").on("click", function(){
+
+	window.location = "/home";
+
+});
+
+$("#btnUpdate").on("click", function(){
+	
+	var password = $("#password").val(),
+		major    = $("#major").val();
+		
+	$.ajax({
+		
+		type: "POST",
+		data: "password="+password+"&major="+major,
+		url: "/user/save",
+		success: function(resp){
+			
+			console.log(resp);
+			if(resp.error){
+				
+				var errorMessage = "";
+				for(var i=0; i<resp.error.length; i++){
+					errorMessage += resp.error[i];
+				}
+				
+				alert(errorMessage);
+				
+			}else{
+				alert("Changes Saved");
+				window.location = "/user/manage";
+			}
+		},
+		error: function(err, resp){
+			
+			alert("Err");
+		}
+		
+	});
+	
+});
+
+</script>
+
+<%- partial('../footer') %>
