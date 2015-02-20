@@ -35,7 +35,7 @@
 			<% try{ %>
 			
 				<% for(var a=0; a<checkpoints[runway[z].id][stage[j].id].length; a++){ %>
-					<input type="checkbox" id="checkpoint" cid="<%= checkpoints[runway[z].id][stage[j].id][a].id %>"> <%= checkpoints[runway[z].id][stage[j].id][a].name %> 
+					<input type="checkbox" id="checkpoint" class="checkpoint" cid="<%= checkpoints[runway[z].id][stage[j].id][a].id %>"  <% if(checkpoints[runway[z].id][stage[j].id][a].status == "checked"){%>checked<% } %>> <%= checkpoints[runway[z].id][stage[j].id][a].name %> 
 					<% if(req.session.userType === "administrator"){%>
 						[<a href="/checkpoint/edit?id=<%= checkpoints[runway[z].id][stage[j].id][a].id %>&fid=<%= checkpoints[runway[z].id][stage[j].id][a].flightplan %>">Edit</a>]
 					<% } %><br>
@@ -79,7 +79,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
 
-$("#checkpoint").on("click", function(){
+$(".checkpoint").on("click", function(){
 
 	var id = $(this).attr("cid");
 	var status = 'unchecked';
