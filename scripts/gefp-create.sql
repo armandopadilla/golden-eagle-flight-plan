@@ -13,6 +13,7 @@ CREATE TABLE `checkpoints` (
   `status` varchar(255) DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
+  `account_id` int(11),
   PRIMARY KEY (`id`)
 );
 
@@ -77,7 +78,7 @@ CREATE TABLE `users` (
 INSERT INTO users (type, username, password, department, flightplan, createdAt, updatedAt) VALUES ('administrator', 'cysun', 'abcd', 1, 1, NOW(), NOW());
 INSERT INTO users (type, username, password, department, flightplan, createdAt, updatedAt) VALUES ('advisor', 'tfox', 'abcd', 1, 1, NOW(), NOW());
 INSERT INTO users (type, username, password, department, flightplan, createdAt, updatedAt) VALUES ('student', 'jdoe1', 'abcd', 1, 1, NOW(), NOW());
-INSERT INTO users (type, username, password, department, flightplan, createdAt, updatedAt) VALUES ('student', 'jdoe2', 'abcd', 2, 2, NOW(), NOW());
+INSERT INTO users (type, username, password, department, flightplan, createdAt, updatedAt) VALUES ('student', 'jdoe2', 'abcd', 1, 1, NOW(), NOW());
 
 #ADD IN DEPARTMENTS
 INSERT INTO departments (name, flightplan, createdAt, updatedAt) VALUES ('Computer Science', 1, NOW(), NOW());
@@ -96,22 +97,22 @@ INSERT INTO flightplans (revision, department, user, createdAt, updatedAt) VALUE
 
 #ADD CHECKPOINTS FOR USERS
 #jdoe1 - single checked.
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Algebra (before Yr1)', 1, 1, '', '', 3, 'unchecked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Pre-calculus (before Yr1)', 1, 1, '', '', 3, 'unchecked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Math 206 (Calc I)', 1, 2, '', '', 3, 'unchecked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Apply for financial aid and scholarships', 2, 1, '', '', 3, 'checked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Take a personal assessment', 2, 2, '', '', 4, 'unchecked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Make a list of questions to ask during orientation and ask them!', 3, 1, '', '', 3, 'unchecked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Find out about ECST student organizations at ECST week ', 3, 2, '', '', 3, 'unchecked', NOW(), NOW());
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Algebra (before Yr1)', 1, 1, '', '', 1, 'unchecked', NOW(), NOW(), 3);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Pre-calculus (before Yr1)', 1, 1, '', '', 1, 'unchecked', NOW(), NOW(), 3);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Math 206 (Calc I)', 1, 2, '', '', 1, 'unchecked', NOW(), NOW(), 3);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Apply for financial aid and scholarships', 2, 1, '', '', 1, 'checked', NOW(), NOW(), 3);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Take a personal assessment', 2, 2, '', '', 1, 'unchecked', NOW(), NOW(), 3);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Make a list of questions to ask during orientation and ask them!', 3, 1, '', '', 1, 'unchecked', NOW(), NOW(), 3);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Find out about ECST student organizations at ECST week ', 3, 2, '', '', 1, 'unchecked', NOW(), NOW(), 3);
 
 #jdoe2 - all checked.
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Algebra (before Yr1)', 1, 1, '', '', 4, 'checked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Pre-calculus (before Yr1)', 1, 1, '', '', 4, 'checked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Math 206 (Calc I)', 1, 2, '', '', 4, 'checked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Apply for financial aid and scholarships', 2, 1, '', '', 4, 'checked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Take a personal assessment', 2, 2, '', '', 4, 'checked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Make a list of questions to ask during orientation and ask them!', 3, 1, '', '', 4, 'checked', NOW(), NOW());
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt) VALUES ('Find out about ECST student organizations at ECST week ', 3, 2, '', '', 4, 'checked', NOW(), NOW());
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Algebra (before Yr1)', 1, 1, '', '', 1, 'checked', NOW(), NOW(), 4);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Pre-calculus (before Yr1)', 1, 1, '', '', 1, 'checked', NOW(), NOW(), 4);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Math 206 (Calc I)', 1, 2, '', '', 1, 'checked', NOW(), NOW(), 4);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Apply for financial aid and scholarships', 2, 1, '', '', 1, 'checked', NOW(), NOW(), 4);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Take a personal assessment', 2, 2, '', '', 1, 'checked', NOW(), NOW(), 4);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Make a list of questions to ask during orientation and ask them!', 3, 1, '', '', 1, 'checked', NOW(), NOW(), 4);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Find out about ECST student organizations at ECST week ', 3, 2, '', '', 1, 'unchecked', NOW(), NOW(), 4);
 
 
 #ADD CHECKPOINTS FOR DEPARTMENT

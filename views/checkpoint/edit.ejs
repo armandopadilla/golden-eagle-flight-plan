@@ -43,21 +43,20 @@
 <button type="button" class="btn btn-danger" id="btnDeleteCheckpoint">Delete</button>
 <input type="hidden" value="<%= fid %>" id="fid" />
 <input type="hidden" id="id" value="<%= checkpoint.id %>" />
+<input type="hidden" id="old_name" value="<%= checkpoint.name %>" />
+<input type="hidden" id="old_stage_id" value="<%= checkpoint.stage.id %>" />
+<input type="hidden" id="old_runway_id" value="<%= checkpoint.runway.id %>" />
 </form>
 	
-
-
 
 </div>
   
   
   
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
 $("#btnEditCheckpoint").on("click", function(){
 	
@@ -66,15 +65,19 @@ $("#btnEditCheckpoint").on("click", function(){
 		content = $("#content_text").val(),
 		name = $("#checkpoint").val(),
 		stage = $("#stage_id").val(),
-		runway = $("#runway_id").val();
+		runway = $("#runway_id").val(),
+		old_name = $("#old_name").val(),
+		old_stage_id = $("#old_stage_id").val(),
+		old_runway_id = $("#old_runway_id").val();
 
 	$.ajax({
 		
 		type: "GET",
-		data: "id="+id+"&content_type="+contentType+"&content="+content+"&name="+name+"&stage="+stage+"&runway="+runway,
+		data: "old_name="+old_name+"&old_stage_id="+old_stage_id+"&old_runway_id="+old_runway_id+"&id="+id+"&content_type="+contentType+"&content="+content+"&name="+name+"&stage="+stage+"&runway="+runway,
 		url: "/checkpoint/save_edit",
 		success: function(err, resp){
 			alert("Saved Checkpoint!");
+			window.location = "/checkpoint/edit?id=<%= checkpoint.id %>&fid=<%= fid %>";
 		},
 		error: function(err, resp){
 			

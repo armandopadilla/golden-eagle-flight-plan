@@ -55,7 +55,7 @@ module.exports = {
 				stage.find({"flightplan" : id}, function(err, s){
 					
 					//Fetch the checkpoints
-					checkpoint.find({"flightplan" : id}, function(err, c){
+					checkpoint.find({"flightplan" : id, "account_id" : null}, function(err, c){
 						
 						//Create a container
 						var container = [];

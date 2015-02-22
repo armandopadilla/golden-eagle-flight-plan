@@ -51,6 +51,11 @@ module.exports  = {
 			type: "string",
 			required: true,
 			enum: ["checked", "unchecked"]
+		},
+		
+		
+		account_id : {
+			type: "integer",
 		}
 			
 	}

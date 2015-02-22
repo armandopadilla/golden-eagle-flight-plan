@@ -50,18 +50,36 @@ module.exports = {
 							 "status" : "unchecked"};
 		
 		//Save the checkpoint
+		var data = {"transaction_status" : "SUCCESS"};
+		var responseJson = {"status" : "OK", "data" :""};
+		
 		checkpoint.create(checkpointObj, function(err, response){
 			
-			var data = {"transaction_status" : "SUCCESS"};
 			if(err){
 				data = {"transaction_status" : "FAILED", "error" : err};
-			}
-			else{
-				data = {"transaction_status" : "SUCCESS"};
+				responseJson.data = data;
+				return res.json(responseJson, 200);
 			}
 			
-			var response = {"status" : "OK", "data" :data};
-			res.json(response, 200);
+			//Add it to all users who have this flightplan...yea this is bad. 
+			user.find({"flightplan":flightplanId}).then(function(results){
+				
+				for(var i=0; i<results.length; i++){
+					
+					checkpointObj.account_id = results[i].id;
+					checkpoint.create(checkpointObj, function(err, response2){
+						if(err){
+							console.log(err);
+						}
+					});
+					
+				}
+				
+				data = {"transaction_status" : "SUCCESS"};
+				responseJson.data = data;
+				return res.json(responseJson, 200);
+				
+			});
 			
 		});
 		
@@ -114,16 +132,26 @@ module.exports = {
 			contentType = req.param("content_type"),
 			content = req.param("content"),
 			stageId = req.param("stage"),
-			runwayId = req.param("runway");
+			runwayId = req.param("runway"),
+			oldName = req.param("old_name"), //yea this sucks too.  I need to clean this up.  tech debt! 
+			oldStageId = req.param("old_stage_id"),
+			oldRunwayId = req.param("old_runway_id");
 		
 		//Update the checkpoint
-		checkpoint.update({"id" : id}, 
-				{"name" : name, 
+		var updateObj = {"name" : name, 
 				 "contentType" : contentType, 
 				 "content" : content,
 				 "stage" : stageId, 
-				 "runway" : runwayId}, function(err, updates){
+				 "runway" : runwayId};
+		
+		checkpoint.update({"id" : id}, updateObj, function(err, updates){
 			
+			//Update all checkpoints for the flightplan+checkpoints name
+			var whereClause = {"name" : oldName, "stage" : oldStageId, "runway" : oldRunwayId};
+
+			checkpoint.update(whereClause, updateObj, function(err, updates2){
+			});
+					 
 			var data = {};
 			if(err){
 				data = {"transaction_status" : "FAILED", "error" : err};
@@ -149,6 +177,8 @@ module.exports = {
 		var checkpointId = req.param("id");
 		
 		checkpoint.destroy({"id" : checkpointId}, function(err, destroyed){
+			
+			//Remove the checkpoint for all users. 
 			
 			var data = {};
 			if(err){
