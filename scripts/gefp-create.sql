@@ -112,7 +112,7 @@ INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, 
 INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Apply for financial aid and scholarships', 2, 1, '', '', 1, 'checked', NOW(), NOW(), 4);
 INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Take a personal assessment', 2, 2, '', '', 1, 'checked', NOW(), NOW(), 4);
 INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Make a list of questions to ask during orientation and ask them!', 3, 1, '', '', 1, 'checked', NOW(), NOW(), 4);
-INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Find out about ECST student organizations at ECST week ', 3, 2, '', '', 1, 'unchecked', NOW(), NOW(), 4);
+INSERT INTO checkpoints (name, runway, stage, content, contentType, flightplan, status, createdAt, updatedAt, account_id) VALUES ('Find out about ECST student organizations at ECST week ', 3, 2, '', '', 1, 'checked', NOW(), NOW(), 4);
 
 
 #ADD CHECKPOINTS FOR DEPARTMENT

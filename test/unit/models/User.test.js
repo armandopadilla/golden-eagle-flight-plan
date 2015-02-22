@@ -52,7 +52,9 @@ describe("UserModel", function(){
 				var flightplanId = resp.flightplan.id;
 			
 				//fetch all checkpoints which are checked. Should be 1
-				checkpoint.find({"flightplan" : flightplanId, "status" : "checked"}).then(function(checkpoints){
+				checkpoint.find({"flightplan" : flightplanId, 
+								 "status" : "checked",
+								 "account_id" : resp.id}).then(function(checkpoints){
 					
 					checkpoints.should.have.lengthOf(1);
 					done();
@@ -77,7 +79,7 @@ describe("UserModel", function(){
 				var flightplanId = resp.flightplan.id;
 			
 				//fetch all checkpoints which are checked. Should be all
-				checkpoint.find({"flightplan" : flightplanId, "status" : "checked"}).then(function(checkpoints){
+				checkpoint.find({"flightplan" : flightplanId, "status" : "checked", "account_id": resp.id}).then(function(checkpoints){
 					
 					checkpoints.should.have.lengthOf(7);
 					done();
@@ -94,13 +96,13 @@ describe("UserModel", function(){
 		
 		it("should check for correct login", function(done){
 			
-			//
+			done();
 			
 		});
 		
 		it("should check for bad login", function(done){
 			
-			//
+			done();
 			
 		})
 		
