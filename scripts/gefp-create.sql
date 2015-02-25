@@ -69,16 +69,20 @@ CREATE TABLE `users` (
   `flightplan` int(11) DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
+  `email_address` varchar(200) NOT NULL UNIQUE,
+  `cin` int(11) NOT NULL UNIQUE,
+  `first_name` varchar(20) NOT NULL,
+  `last_name` varchar(20),
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 );
 
 
 #ADD IN USERS
-INSERT INTO users (type, username, password, department, flightplan, createdAt, updatedAt) VALUES ('administrator', 'cysun', 'abcd', 1, 1, NOW(), NOW());
-INSERT INTO users (type, username, password, department, flightplan, createdAt, updatedAt) VALUES ('advisor', 'tfox', 'abcd', 1, 1, NOW(), NOW());
-INSERT INTO users (type, username, password, department, flightplan, createdAt, updatedAt) VALUES ('student', 'jdoe1', 'abcd', 1, 1, NOW(), NOW());
-INSERT INTO users (type, username, password, department, flightplan, createdAt, updatedAt) VALUES ('student', 'jdoe2', 'abcd', 1, 1, NOW(), NOW());
+INSERT INTO users (type, username, password, department, flightplan, email_address, cin, first_name, last_name, createdAt, updatedAt) VALUES ('administrator', 'cysun', 'abcd', 1, 1, 'cysun@example.com', '1234567890', 'c', 'sun', NOW(), NOW());
+INSERT INTO users (type, username, password, department, flightplan, email_address, cin, first_name, last_name, createdAt, updatedAt) VALUES ('advisor', 'tfox', 'abcd', 1, 1, 'tfox@example.com', '1234567891', 't', 'fox', NOW(), NOW());
+INSERT INTO users (type, username, password, department, flightplan, email_address, cin, first_name, last_name, createdAt, updatedAt) VALUES ('student', 'jdoe1', 'abcd', 1, 1, 'jdoe1@example.com', '1234567892', 'j', 'doe1', NOW(), NOW());
+INSERT INTO users (type, username, password, department, flightplan, email_address, cin, first_name, last_name, createdAt, updatedAt) VALUES ('student', 'jdoe2', 'abcd', 1, 1, 'jdoe2@example.com', '1234567893', 'j', 'doe2', NOW(), NOW());
 
 #ADD IN DEPARTMENTS
 INSERT INTO departments (name, flightplan, createdAt, updatedAt) VALUES ('Computer Science', 1, NOW(), NOW());

@@ -48,7 +48,33 @@ module.exports = {
 		//Each student has a copy of a flight plan.
 		flightplan: {
 			model : "flightplan"
+		},
+		
+		email_address: {
+			type: 'string',
+			size: 200,
+			required: true,
+			unique: true
+		},
+		
+		cin : {
+			type: 'integer',
+			size: 11, 
+			required: true,
+			unique: true
+		},
+		
+		first_name: {
+			type: 'string',
+			size: 20,
+			required: true
+		},
+		
+		last_name: {
+			type: 'string',
+			size: 20
 		}
+		
 		
 		
 	},

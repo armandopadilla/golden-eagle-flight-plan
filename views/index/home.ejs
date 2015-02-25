@@ -69,7 +69,29 @@
 	<div style="padding: 30px 30px;">
 		<h2>Welcome back Advisor!</h2>
 		<h5>Use the links above to navigate and manage</h5>
+	
+	<br><br>
+	<div class="panel panel-default">
+	  <div class="panel-heading">Student Lookup</div>
+	  <div class="panel-body">
+	   
+	   <form>
+			<div class="form-group">
+				<input type="text" id="term" class="form-control" placeholder="Enter Student Name, Email, or CIN" />
+			</div>
+		</form>
+	   
+	  </div>
+	  
+	   <!-- List group -->
+	  <ul class="list-group"></ul>
+	  
 	</div>
+	
+		
+			
+	</div>
+	
 
 <% } %>
 
@@ -78,6 +100,39 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
+
+$("#term").on("keyup", function(){
+
+	var term = encodeURIComponent($(this).val());
+	
+	if(term === ""){
+		$(".list-group").html("");
+		return;
+	}
+
+	$.ajax({
+		type: 'POST',
+		url: 'search/lookup',
+		data: 'term='+term,
+		dataType: 'json',
+		success: function(resp){
+		
+			$(".list-group").html("");
+			
+			$.each(resp, function(index, record){
+				
+				console.log(record);
+				var displayText = record.cin+" "+record.first_name+" "+record.last_name+ " "+record.email_address
+				$(".list-group").append("<li class=\"list-group-item\" id=\""+record.id+"\">"+displayText+"</li>");
+				
+			})
+		
+		},
+		error: function(err){}
+	});
+	
+
+});
 
 $(".checkpoint").on("click", function(){
 
