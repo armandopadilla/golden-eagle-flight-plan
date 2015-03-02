@@ -1,0 +1,87 @@
+<%- partial('../header') %>
+
+
+<div style="padding: 30px 30px;">
+  <h3>User Flightplan</h3>
+
+  <table class="table table-striped table-bordered">
+    <thead><tr><th></th>
+      <% for(var i=0; i<runway.length; i++){ %>
+
+      <th>
+        <%= runway[i].name %>
+        <% if(req.session.userType === "administrator"){%>
+        [<a href="/runway/edit?id=<%= runway[i].id %>">Edit</a>]
+        <% } %>
+      </th>
+
+      <% } %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% for(var j=0; j<stage.length; j++){%>
+    <tr>
+      <td>
+        <%= stage[j].name %>  - stage
+        <% if(req.session.userType === "administrator"){%>
+        [<a href="/stage/edit?id=<%= stage[j].id %>">Edit</a>]
+        <% } %>
+      </td>
+
+      <% for(var z=0; z<runway.length; z++) {%>
+
+      <td>
+        <% try{ %>
+
+        <% for(var a=0; a<checkpoints[runway[z].id][stage[j].id].length; a++){ %>
+        <input type="checkbox" id="checkpoint" class="checkpoint" cid="<%= checkpoints[runway[z].id][stage[j].id][a].id %>"  <% if(checkpoints[runway[z].id][stage[j].id][a].status == "checked"){%>checked<% } %>> <%= checkpoints[runway[z].id][stage[j].id][a].name %>
+        <% if(req.session.userType === "administrator"){%>
+        [<a href="/checkpoint/edit?id=<%= checkpoints[runway[z].id][stage[j].id][a].id %>&fid=<%= checkpoints[runway[z].id][stage[j].id][a].flightplan %>">Edit</a>]
+        <% } %><br>
+        <% } %>
+
+        <% }catch(err){} %>
+      </td>
+
+      <% } %>
+
+
+    </tr>
+    <% } %>
+    </tbody>
+  </table>
+
+</div>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+  $(".checkpoint").on("click", function(){
+
+    var id = $(this).attr("cid");
+    var status = 'unchecked';
+
+    //Check if checked or unchecked.
+    if(this.checked == true){
+      status = "checked";
+    }
+
+
+    $.ajax({
+
+      type: "GET",
+      url: "/checkpoint/checkoff",
+      data: "id="+id+"&status="+status,
+      dataType: "json",
+      success: function(){
+        alert("Saved!");
+      }
+
+    })
+  });
+
+</script>
+
+<%- partial('../footer') %>

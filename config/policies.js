@@ -23,7 +23,7 @@ module.exports.policies = {
   FlightplanController: {
 	  '*': 'isLoggedIn'
   },
-  
+
   StageController: {
 	  '*': 'isLoggedIn',
 	  manage: 'isLoggedIn',
@@ -33,7 +33,7 @@ module.exports.policies = {
 	  save_edit: 'isLoggedIn',
 	  delete: 'isLoggedIn'
   },
-  
+
   RunwayController: {
 	  '*': 'isLoggedIn',
 	  manage: 'isAdmin',
@@ -43,7 +43,7 @@ module.exports.policies = {
 	  edit: 'isAdmin',
 	  save: 'isAdmin'
   },
-  
+
   CheckpointController: {
 	  '*': 'isLoggedIn',
 	  add: 'isAdmin',
@@ -52,15 +52,15 @@ module.exports.policies = {
 	  save_edit: 'isAdmin',
 	  delete: 'isAdmin'
   },
-  
+
   DepartmentsController: {
-	  '*': 'isLoggedIn',
+	  flightplans: 'isLoggedIn',
 	  manage: 'isAdmin'
   },
-  
+
   UserController: {
 	  '*': 'isLoggedIn'
   }
-  
-  
+
+
 };

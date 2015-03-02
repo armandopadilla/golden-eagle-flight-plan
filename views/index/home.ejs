@@ -1,5 +1,5 @@
 <%- partial('../header') %>
-    
+
 <% if(req.session.userType === "student") { %>
 <div style="padding: 30px 30px;">
 <h3>View Flightplan</h3>
@@ -7,18 +7,18 @@
 	<table class="table table-striped table-bordered">
 	<thead><tr><th></th>
 	<% for(var i=0; i<runway.length; i++){ %>
-	
+
 		<th>
-			<%= runway[i].name %> 
+			<%= runway[i].name %>
 			<% if(req.session.userType === "administrator"){%>
 				[<a href="/runway/edit?id=<%= runway[i].id %>">Edit</a>]
 			<% } %>
 		</th>
-	
+
 	<% } %>
 	</tr>
 	</thead>
-	
+
 	<tbody>
 	<% for(var j=0; j<stage.length; j++){%>
 	<tr>
@@ -28,30 +28,30 @@
 				[<a href="/stage/edit?id=<%= stage[j].id %>">Edit</a>]
 			<% } %>
 		</td>
-		
+
 		<% for(var z=0; z<runway.length; z++) {%>
-			
+
 			<td>
 			<% try{ %>
-			
+
 				<% for(var a=0; a<checkpoints[runway[z].id][stage[j].id].length; a++){ %>
-					<input type="checkbox" id="checkpoint" class="checkpoint" cid="<%= checkpoints[runway[z].id][stage[j].id][a].id %>"  <% if(checkpoints[runway[z].id][stage[j].id][a].status == "checked"){%>checked<% } %>> <%= checkpoints[runway[z].id][stage[j].id][a].name %> 
+					<input type="checkbox" id="checkpoint" class="checkpoint" cid="<%= checkpoints[runway[z].id][stage[j].id][a].id %>"  <% if(checkpoints[runway[z].id][stage[j].id][a].status == "checked"){%>checked<% } %>> <%= checkpoints[runway[z].id][stage[j].id][a].name %>
 					<% if(req.session.userType === "administrator"){%>
 						[<a href="/checkpoint/edit?id=<%= checkpoints[runway[z].id][stage[j].id][a].id %>&fid=<%= checkpoints[runway[z].id][stage[j].id][a].flightplan %>">Edit</a>]
 					<% } %><br>
 				<% } %>
-				
+
 			<% }catch(err){} %>
 			</td>
-			
+
 		<% } %>
-		
-		
+
+
 	</tr>
 	<% } %>
 	</tbody>
 	</table>
-	
+
 </div>
 <% } %>
 
@@ -69,33 +69,33 @@
 	<div style="padding: 30px 30px;">
 		<h2>Welcome back Advisor!</h2>
 		<h5>Use the links above to navigate and manage</h5>
-	
+
 	<br><br>
 	<div class="panel panel-default">
 	  <div class="panel-heading">Student Lookup</div>
 	  <div class="panel-body">
-	   
+
 	   <form>
 			<div class="form-group">
 				<input type="text" id="term" class="form-control" placeholder="Enter Student Name, Email, or CIN" />
 			</div>
 		</form>
-	   
+
 	  </div>
-	  
+
 	   <!-- List group -->
 	  <ul class="list-group"></ul>
-	  
+
 	</div>
-	
-		
-			
+
+
+
 	</div>
-	
+
 
 <% } %>
 
-    
+
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -104,7 +104,7 @@
 $("#term").on("keyup", function(){
 
 	var term = encodeURIComponent($(this).val());
-	
+
 	if(term === ""){
 		$(".list-group").html("");
 		return;
@@ -116,37 +116,53 @@ $("#term").on("keyup", function(){
 		data: 'term='+term,
 		dataType: 'json',
 		success: function(resp){
-		
+
 			$(".list-group").html("");
-			
+
 			$.each(resp, function(index, record){
-				
-				console.log(record);
+
 				var displayText = record.cin+" "+record.first_name+" "+record.last_name+ " "+record.email_address
-				$(".list-group").append("<li class=\"list-group-item\" id=\""+record.id+"\">"+displayText+"</li>");
-				
+
+        $(".list-group").append("<li class=\"list-group-item\" oid=\""+record.id+"\" fid=\""+record.flightplan+"\">"+displayText+"</li>");
+
 			})
-		
+
 		},
 		error: function(err){}
 	});
-	
+
 
 });
+
+
+/**
+ * Send the
+ */
+$(document).on("click", ".list-group-item", function(){
+
+
+  var studentId = $(this).attr("oid");
+  var flightplanId = $(this).attr("fid")
+
+  window.location = "/user/flightplan?fid="+flightplanId+"&oid="+studentId;
+
+
+});
+
 
 $(".checkpoint").on("click", function(){
 
 	var id = $(this).attr("cid");
 	var status = 'unchecked';
-	
+
 	//Check if checked or unchecked.
 	if(this.checked == true){
 		status = "checked";
 	}
-	
-	
+
+
 	$.ajax({
-	
+
 		type: "GET",
 		url: "/checkpoint/checkoff",
 		data: "id="+id+"&status="+status,
@@ -154,10 +170,10 @@ $(".checkpoint").on("click", function(){
 		success: function(){
 			alert("Saved!");
 		}
-	
+
 	})
-	
-	
+
+
 
 });
 
