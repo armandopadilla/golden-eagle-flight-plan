@@ -19,19 +19,22 @@
 
 module.exports.policies = {
 
-
   FlightplanController: {
-	  '*': 'isLoggedIn'
+	  '*': 'isLoggedIn',
+    add: ['isLoggedIn', 'isAdmin'],
+    save: ['isLoggedIn', 'isAdmin'],
+    setasofficial: ['isLoggedIn', 'isAdmin'],
+    view: ['isLoggedIn', 'isAdmin']
   },
 
   StageController: {
 	  '*': 'isLoggedIn',
-	  manage: 'isLoggedIn',
-	  add: 'isLoggedIn',
-	  save: 'isLoggedIn',
-	  edit: 'isLoggedIn',
-	  save_edit: 'isLoggedIn',
-	  delete: 'isLoggedIn'
+	  manage: 'isAdmin',
+	  add: 'isAdmin',
+	  save: 'isAdmin',
+	  edit: 'isAdmin',
+	  save_edit: 'isAdmin',
+	  delete: 'isAdmin'
   },
 
   RunwayController: {
@@ -50,16 +53,19 @@ module.exports.policies = {
 	  save: 'isAdmin',
 	  edit: 'isAdmin',
 	  save_edit: 'isAdmin',
-	  delete: 'isAdmin'
+	  delete: 'isAdmin',
+    checkoff: ['isLoggedIn', 'canCheckUnCheck']
   },
 
   DepartmentsController: {
-	  flightplans: 'isLoggedIn',
+	  flightplans: ['isLoggedIn', 'isAdmin'],
 	  manage: 'isAdmin'
+
   },
 
   UserController: {
-	  '*': 'isLoggedIn'
+	  '*': 'isLoggedIn',
+    flightplan: ['isLoggedIn', 'canViewPlan']
   }
 
 

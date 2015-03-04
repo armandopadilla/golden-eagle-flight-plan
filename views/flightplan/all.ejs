@@ -8,19 +8,18 @@
 	</thead>
 	<tbody>
 		<% for(var i=0; i<flightplans.length; i++) { %>
-		
+
 			<tr><td width="80%"><%= flightplans[i].user.username %>'s Flightplan</td>
 				<td>
-					<a href="/flightplan/view?id=<%=flightplans[i].id%>" class="btn btn-default">View</a> 
+					<a href="/user/flightplan?fid=<%=flightplans[i].user.flightplan%>&oid=<%=flightplans[i].user.id%>" class="btn btn-default">View</a>
 				</td></tr>
-		
-		<% } %> 
-	</tbody> 
+
+		<% } %>
+	</tbody>
 	</table>
 </div>
-  
-  
-  
+
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
