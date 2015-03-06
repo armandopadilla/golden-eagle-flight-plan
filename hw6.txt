@@ -1,0 +1,43 @@
+Security Implementations
+
+Login Implementation:
+I implemented the Login and lgout features by checking the username and password with the information I had on the database.
+If the user and password combination did not exist I did not log the user in.
+
+
+ACLs and Access Policies.
+Using the requirements outlined by hw6 I created 3 policies.
+1.  isAdmin
+2.  canCheckUnCheck
+3.  canViewPlan
+
+These policies restricted access to specific Controller code.  For example.   All C.R.U.D. actions for Runways, Checkpoints and
+Stages can only be done and seen by admins.  The logic flow is as follows.
+
+1.  User makes call to route.
+2.  Sails loads policies for specific route
+3.  Sails checks if there are any policies to run.  If so run them
+
+
+Regarding, students can only access their own plan.  Here i checked that the user making the request was the actual owner of the
+flightplan.  If not, then I would show "Unauthorized Request".  This check was made using the canViewPlan.js file.
+
+Checking and un checking checkpoints is handled by canCheckUnCheck.js and simply checks if the logged in use is an advisor or
+is the owner of the checkpoint.  If not then the user is not able to do anything.  Since the call to checking and unchecking is
+AJAX i returned the error in JSON form.
+
+
+Web site navigation
+Any section that the user is not allowed a to see I've hidden using if-then statements to check if the user is a specific
+type of user.  This information is stored in a session and set upon login.
+
+CORS
+I've also turned off CORS which stops external websites or apps calling the endpoints I created.
+
+CSRF
+All forms also use CSRF tokens.  This means that any form submission must also carry a request token so that the backend server
+knows the request is valid (over simplified this explination)
+
+
+SQL Injection
+sails-mysql auto filters any sql injection attempts (or at least tries to)

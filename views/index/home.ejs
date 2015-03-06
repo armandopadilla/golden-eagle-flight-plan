@@ -79,6 +79,7 @@
 			<div class="form-group">
 				<input type="text" id="term" class="form-control" placeholder="Enter Student Name, Email, or CIN" />
 			</div>
+       <input type='hidden' name='_csrf' value='<%= _csrf %>' id="csrf">
 		</form>
 
 	  </div>
@@ -103,7 +104,8 @@
 
 $("#term").on("keyup", function(){
 
-	var term = encodeURIComponent($(this).val());
+	var term = encodeURIComponent($(this).val()),
+  token = $("#csrf").val();
 
 	if(term === ""){
 		$(".list-group").html("");
@@ -113,7 +115,7 @@ $("#term").on("keyup", function(){
 	$.ajax({
 		type: 'POST',
 		url: 'search/lookup',
-		data: 'term='+term,
+		data: 'term='+term+"&_csrf="+encodeURIComponent(token),
 		dataType: 'json',
 		success: function(resp){
 

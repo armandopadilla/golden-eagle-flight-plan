@@ -30,11 +30,12 @@
 <button type="button" class="btn btn-default" id="btnCancel">Cancel</button>
 <button type="button" class="btn btn-default" id="btnUpdate">Update</button>
 <input type="hidden" value="" id="fid" />
+  <input type='hidden' name='_csrf' value='<%= _csrf %>' id="csrf">
 </form>
 
 </div>
-  
-  
+
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
@@ -45,39 +46,40 @@ $("#btnCancel").on("click", function(){
 });
 
 $("#btnUpdate").on("click", function(){
-	
+
 	var password = $("#password").val(),
-		major    = $("#major").val();
-		
+		major    = $("#major").val(),
+    token = $("#csrf").val();
+
 	$.ajax({
-		
+
 		type: "POST",
-		data: "password="+password+"&major="+major,
+		data: "password="+password+"&major="+major+"&_csrf="+encodeURIComponent(token),
 		url: "/user/save",
 		success: function(resp){
-			
+
 			console.log(resp);
 			if(resp.error){
-				
+
 				var errorMessage = "";
 				for(var i=0; i<resp.error.length; i++){
 					errorMessage += resp.error[i];
 				}
-				
+
 				alert(errorMessage);
-				
+
 			}else{
 				alert("Changes Saved");
 				window.location = "/user/manage";
 			}
 		},
 		error: function(err, resp){
-			
+
 			alert("Err");
 		}
-		
+
 	});
-	
+
 });
 
 </script>
