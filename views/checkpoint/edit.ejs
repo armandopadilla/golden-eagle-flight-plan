@@ -1,6 +1,6 @@
 <%- partial('../header') %>
 
-    
+
 <div style="padding: 30px 30px;">
 <h3>Edit Checkpoint</h3>
 
@@ -23,8 +23,10 @@
 </div>
 <div class="form-group">
 	<label for="name">Checkpoint Name:</label>
-	<input type="text" id="checkpoint" class="form-control" placeholder="Checkpoint Name" value="<%= checkpoint.name %>" />
-	</select>
+  <textarea name="checkpoint" id="checkpoint" rows="10" cols="80"><%= checkpoint.name %></textarea>
+  <script>
+    CKEDITOR.replace( 'checkpoint' );
+  </script>
 </div>
 <div class="form-group">
 	<label for="content_type">Content Type:</label>
@@ -47,23 +49,23 @@
 <input type="hidden" id="old_stage_id" value="<%= checkpoint.stage.id %>" />
 <input type="hidden" id="old_runway_id" value="<%= checkpoint.runway.id %>" />
 </form>
-	
+
 
 </div>
-  
-  
-  
+
+
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 <script>
 $("#btnEditCheckpoint").on("click", function(){
-	
+
 	var id = $("#id").val(),
 		contentType = $("#content_type").val(),
 		content = $("#content_text").val(),
-		name = $("#checkpoint").val(),
+		name = CKEDITOR.instances['checkpoint'].getData(),
 		stage = $("#stage_id").val(),
 		runway = $("#runway_id").val(),
 		old_name = $("#old_name").val(),
@@ -71,7 +73,7 @@ $("#btnEditCheckpoint").on("click", function(){
 		old_runway_id = $("#old_runway_id").val();
 
 	$.ajax({
-		
+
 		type: "GET",
 		data: "old_name="+old_name+"&old_stage_id="+old_stage_id+"&old_runway_id="+old_runway_id+"&id="+id+"&content_type="+contentType+"&content="+content+"&name="+name+"&stage="+stage+"&runway="+runway,
 		url: "/checkpoint/save_edit",
@@ -80,29 +82,29 @@ $("#btnEditCheckpoint").on("click", function(){
 			window.location = "/checkpoint/edit?id=<%= checkpoint.id %>&fid=<%= fid %>";
 		},
 		error: function(err, resp){
-			
+
 			alert("Err");
 		}
-		
+
 	});
-	
+
 });
 
 
 $("#content_type").on("change", function(){
-	
+
 	var option = $("#content_type").val();
-	
+
 	if(option === "File"){
-	
-		//Hide the text 
-		$("#content_text").hide();	
+
+		//Hide the text
+		$("#content_text").hide();
 		//Show the title.
 		$("#content").append("<input type='file' id='content_file' /> <span id='note'>Note:  Will not allow uploading since server is out in the public.</span>");
-	
-	}	
+
+	}
 	else{
-	
+
 		//Toggle file.
 		if($("#content_file").length > 0){
 
@@ -117,11 +119,11 @@ $("#content_type").on("change", function(){
 
 
 $("#btnDeleteCheckpoint").on("click", function(){
-	
+
 	var id = $("#id").val();
 
 	$.ajax({
-		
+
 		type: "GET",
 		data: "id="+id,
 		url: "/checkpoint/delete",
@@ -129,12 +131,12 @@ $("#btnDeleteCheckpoint").on("click", function(){
 			alert("Deleted Checkpoint!");
 		},
 		error: function(err, resp){
-			
+
 			alert("Err");
 		}
-		
+
 	});
-	
+
 });
 </script>
 

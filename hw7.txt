@@ -1,0 +1,19 @@
+What was implemented
+Below items are available only as an admin.
+
+1. Edit runway names in a plan.
+
+There are two ways to do this.  One located here:  runway/manage.  And another directly from the plan itself.
+Departments > Manage Departments > Select Department “View All Plans” > Edit/View Plan > Edit
+
+2. Edit stage names in a plan.
+There are two ways to do this.  One located here:  stage/manage.  And another directly from the plan itself.
+Departments > Manage Departments > Select Department “View All Plans” > Edit/View Plan > Edit
+
+3. Enter the text of checkpoints using CKEditor.
+Can be seen in both add and edit checkpoints.
+
+4. Good UI.
+I think its good.
+
+URL: http://54.83.206.5:1337

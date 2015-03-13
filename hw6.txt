@@ -11,13 +11,15 @@ Using the requirements outlined by hw6 I created 3 policies.
 2.  canCheckUnCheck
 3.  canViewPlan
 
-These policies restricted access to specific Controller code.  For example.   All C.R.U.D. actions for Runways, Checkpoints and
+These policies restricted access to specific Controller code.  For example.   All Create, Update, Delete. actions for Runways, Checkpoints and
 Stages can only be done and seen by admins.  The logic flow is as follows.
 
 1.  User makes call to route.
 2.  Sails loads policies for specific route
 3.  Sails checks if there are any policies to run.  If so run them
 
+In the above example 2 policies will run.  One to check if the user is logged in and the other to check if the user is an admin.
+If the user is not an admin the user is taken to "home".
 
 Regarding, students can only access their own plan.  Here i checked that the user making the request was the actual owner of the
 flightplan.  If not, then I would show "Unauthorized Request".  This check was made using the canViewPlan.js file.
